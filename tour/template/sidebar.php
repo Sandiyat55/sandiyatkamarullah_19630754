@@ -43,36 +43,19 @@
                            </div>
                        </li>
                        <li class="menu">
-                           <a href="#uiAndComponents" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
+                           <a href="../admin/tb_sewa.php" class="dropdown-toggle collapsed">
                                <div class="">
                                    <i class="flaticon-car"></i>
                                    <span>Mobil</span>
                                </div>
                            </a>
-                           <div class="submenu list-unstyled collapse eq-animated eq-fadeInUp" id="uiAndComponents" data-parent="#topAccordion">
-                               <div class="submenu-scroll">
-                                   <ul class="list-unstyled">
-                                       <li>
-                                           <a href="#ui-features" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle"> <span class="">Tabel & Form</span> </a>
-                                           <ul class="list-unstyled sub-submenu collapse show eq-animated eq-fadeInUp" id="ui-features">
-                                               <li>
-                                                   <a href="../admin/tb_sewa.php">Tabel Sewa </a>
-                                               </li>
-                                               <li>
-                                                   <a href="../admin/pengembalian.php">Form Pengembalian</a>
-                                               </li>
-                                           </ul>
-                                       </li>
-                                   </ul>
 
-                               </div>
-                           </div>
                        </li>
 
                        <li class="menu">
                            <a href="../admin/tb_transaksi.php" class="dropdown-toggle collapsed">
                                <div class="">
-                                   <i class="flaticon-copy"></i>
+                                   <i class="flaticon-location"></i>
                                    <span>Paket Wisata</span>
                                </div>
                            </a>
@@ -82,7 +65,7 @@
                        <li class="menu">
                            <a href="#app" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">
                                <div class="">
-                                   <i class="flaticon-mail-19"></i>
+                                   <i class="flaticon-mail-28"></i>
                                    <span>Report</span>
                                </div>
                            </a>
@@ -93,34 +76,24 @@
                                            <li>
                                                <ul class="list-unstyled sub-submenu collapse show eq-animated eq-fadeInUp" id="apps">
                                                    <li>
-                                                       <a href="apps_chat.html"> Chat </a>
+                                                       <a href="../admin/user_cetak.php"> Form Customers </a>
                                                    </li>
                                                    <li>
-                                                       <a href="apps_mailbox.html"> Mailbox </a>
+                                                       <a href="../admin/mobil_cetak.php"> Form Mobil </a>
                                                    </li>
                                                    <li>
-                                                       <a href="apps_mailbox_with_chat.html"> Mailbox With Chat </a>
+                                                       <a href="../admin/wisata_cetak.php"> Form Wisata </a>
                                                    </li>
                                                    <li>
-                                                       <a href="apps_newsletter.html"> Newsletter </a>
+                                                       <a href="../admin/pengembalian_cetak.php"> Form Pengembalian Mobil </a>
                                                    </li>
                                                    <li>
-                                                       <a href="apps_scheduler.html"> Scheduler </a>
+                                                       <a href="../admin/sewa_cetak.php"> Form Transaksi Mobil </a>
                                                    </li>
-                                                   <li class="sub-sub-submenu-list">
-                                                       <a href="#apps-calendars" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> Calendar <i class="flaticon-right-arrow"></i> </a>
-                                                       <ul class="collapse list-unstyled sub-submenu eq-animated eq-fadeInUp" id="apps-calendars" data-parent="#apps-calendars">
-                                                           <li>
-                                                               <a href="apps_basic_calendar.html"> Basic </a>
-                                                           </li>
-                                                           <li>
-                                                               <a href="apps_full_calendar.html"> Full Calendar </a>
-                                                           </li>
-                                                           <li>
-                                                               <a href="apps_drag_n_drop_calendar.html"> Drag n Drop </a>
-                                                           </li>
-                                                       </ul>
+                                                   <li>
+                                                       <a href="../admin/transaksi_cetak.php"> Form Transaksi Wisata </a>
                                                    </li>
+
                                                </ul>
                                            </li>
                                        </ul>
@@ -132,7 +105,7 @@
                        <li class="menu">
                            <a href="../auth/logout.php" aria-expanded="false" class="dropdown-toggle">
                                <div class="">
-                                   <i class="flaticon-3d-cube"></i>
+                                   <i class="flaticon-logout"></i>
                                    <span class="">Logout</span>
                                </div>
                            </a>

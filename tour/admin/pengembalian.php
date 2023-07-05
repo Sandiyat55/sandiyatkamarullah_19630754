@@ -3,8 +3,35 @@ session_start();
 include '../include/config.php';
 
 if (!isset($_SESSION['users'])) {
-    header("Location: auth/user_login.php");
-} ?>
+    header("Location: ../auth/user_login.php");
+}
+
+// mengecek apakah di url ada nilai GET id
+if (isset($_GET['id_transaksi'])) {
+    // ambil nilai id dari url dan disimpan dalam variabel $id
+    $id_transaksi = $_GET['id_transaksi'];
+
+    // menampilkan data dari database yang mempunyai id=$id
+    $query = "SELECT transaksi.*, mobil.id_mobil, mobil.nama_mobil, users.id_user, users.username FROM transaksi INNER JOIN mobil ON transaksi.id_mobil = mobil.id_mobil INNER Join users ON transaksi.id_user = users.id_user WHERE id_transaksi='$id_transaksi'";
+    $result = mysqli_query($conn, $query);
+    // jika data gagal diambil maka akan tampil error berikut
+    if (!$result) {
+        die("Query Error: " . mysqli_errno($conn) .
+            " - " . mysqli_error($conn));
+    }
+    // mengambil data dari database
+    $data = mysqli_fetch_assoc($result);
+    // apabila data tidak ada pada database maka akan dijalankan perintah ini
+    if (!count($data)) {
+        echo "<script>alert('Data tidak ditemukan pada database');window.location='tb_sewa.php';</script>";
+    }
+} else {
+    // apabila tidak ada data GET id pada akan di redirect ke index.php
+    echo "<script>alert('Masukkan data id.');window.location='tb_sewa.php';</script>";
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +39,7 @@ if (!isset($_SESSION['users'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Tabel Paket Wisata | Travel Icha </title>
+    <title>Form Pengembalian | Travel Icha </title>
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="../assets/css/loader.css" rel="stylesheet" type="text/css" />
@@ -54,91 +81,58 @@ if (!isset($_SESSION['users'])) {
             <div class="container">
                 <div class="page-header">
                     <div class="page-title">
-                        <h3>Tabel Paket Wisata</h3>
+                        <h3>Form Pengembalian</h3>
                     </div>
                 </div>
 
-                <div class="row" id="cancel-row">
-
-                    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+                <div class="row">
+                    <div class="col-lg-12 layout-spacing">
                         <div class="statbox widget box box-shadow">
                             <div class="widget-header">
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                        <h4>
-                                            <a href="tambah_wisata.php" class="btn btn-primary btn-rounded toggle-vis mb-8 ml-2">Tambah Data</a>
-                                        </h4>
+                                        <h4>Forms </h4>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="widget-content widget-content-area">
-                                <div class="table-responsive mb-4">
-                                    <table id="html5-extension" class="table table-striped table-bordered table-hover" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama </th>
-                                                <th>Kuota</th>
-                                                <th>Tanggal Berangkat
+                                <form action="update_pengembalian.php" method="POST" enctype="multipart/form-data">
 
-                                                </th>
-                                                <th>Berapa Lama</th>
-                                                <th>Status</th>
-                                                <th>Harga</th>
-                                                <th>Gambar</th>
-                                                <th>Deskripsi</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <?php
-                                                $no = 1;
-                                                $query = mysqli_query($conn, "SELECT * FROM wisata ORDER BY id_wisata DESC;");
-                                                while ($row = mysqli_fetch_assoc($query)) {
-                                                ?>
-                                                    <td><?php echo $no++; ?></td>
-                                                    <td><?php echo $row['nama']; ?></td>
-                                                    <td><?php echo $row['kuota']; ?></td>
-                                                    <td><?php echo $row['tanggal']; ?></td>
-                                                    <td><?php echo $row['berapa_hari']; ?> hari</td>
+                                    <div class="form-row mb-2">
+                                        <input name="id_transaksi" value="<?php echo $data['id_transaksi']; ?>" hidden />
+                                        <div class="form-group col-md-12">
+                                            <label for="status">Transaksi Mobil</label>
+                                            <input type="text" class="form-control-rounded form-control" name="transaksi_mobil" placeholder="<?php echo $data['id_transaksi']; ?>/mobil <?php echo $data['nama_mobil']; ?>/<?php echo $data['username']; ?>" readonly>
+                                        </div>
+                                    </div>
 
-                                                    <?php if ($row['status'] == "Aktif") {
-                                                    ?>
-                                                        <td class="align-center"><span class="shadow-none badge badge-success"><?php echo $row['status']; ?></span></td>
-                                                    <?php } else {
-                                                    ?>
-                                                        <td class="align-center"><span class="shadow-none badge badge-danger"><?php echo $row['status']; ?></span></td>
-                                                    <?php
-                                                    } ?>
-                                                    <td>Rp. <?php echo number_format($row['harga']); ?>,00</td>
-                                                    <td class="align-center"><?php echo "<img src='../gambar/$row[gambar]' width='70' height='90' />"; ?></td>
-                                                    <td>
-                                                        <?php
-                                                        $kalimat    =  $row['deskripsi'];;
-                                                        $tampil_sebagian    = substr($kalimat, 0, 30);
-                                                        echo "$tampil_sebagian ...";
-                                                        ?>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <ul class="table-controls">
-                                                            <li><a href="edit_wisata.php?id_wisata=<?php echo  $row["id_wisata"]; ?>" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="flaticon-edit  p-1 br-6 mb-1"></i></a></li>
-                                                            <li><a href="delete_wisata.php?id_wisata=<?php echo  $row["id_wisata"]; ?>" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="flaticon-delete  p-1 br-6 mb-1"></i></a></li>
-                                                        </ul>
-                                                    </td>
+                                    <div class="form-row mb-4">
 
-                                            </tr>
-                                        <?php } ?>
+                                        <div class="form-group col-md-12">
+                                            <label for="gambar">Gambar Pengembalian</label>
+                                            <input type="file" class="form-control-rounded form-control" name="gambar" id="gambar">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="status">Kondisi Pengembalian</label>
+                                            <select class="form-control-rounded form-control" id="kondisi" name="kondisi">
+                                                <option selected="">Pilih Status</option>
+                                                <option value="Baik">Baik</option>
+                                                <option value="Tidak Baik">Tidak Baik</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group mb-8">
+                                            <label for="ket">Deskripsi</label>
+                                            <textarea class="form-control-rounded form-control" name="ket" id="ket" cols="70" rows="5"></textarea>
+                                        </div>
 
-                                        </tbody>
-                                    </table>
+                                    </div>
+                                    <button type="reset" class="btn btn-button-8 btn-rounded mb-4 mt-3">Cancel</button>
+                                    <button type="submit" class="btn btn-button-7 btn-rounded mb-4 mt-3">Simpan</button>
+                                </form>
 
-                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>

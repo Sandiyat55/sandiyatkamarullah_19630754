@@ -101,7 +101,11 @@ if (isset($_POST['submit'])) {
                     <input type="password" placeholder="Password Lagi" name="cpassword" value="<?php echo $_POST['cpassword']; ?>" aria-describedby="inputPasswordlagi" class="form-control" required>
                 </div>
 
-
+                <div class="col-md-12">
+                    <div class="login-text text-center">
+                        <p class="mt-3 ">Sudah Punya Akun? <a href="user_login.php" class="mt-3 text-white">Klik sini </a> </p>
+                    </div>
+                </div>
 
                 <button name="submit" class="btn btn-lg btn-gradient-warning btn-block btn-rounded mb-4 mt-5" type="submit">Register</button>
 

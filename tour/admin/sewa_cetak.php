@@ -12,7 +12,7 @@ if (!isset($_SESSION['users'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Tabel Sewa | Travel Icha </title>
+    <title>Tabel Transaksi Mobil | Travel Icha </title>
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="../assets/css/loader.css" rel="stylesheet" type="text/css" />
@@ -54,7 +54,7 @@ if (!isset($_SESSION['users'])) {
             <div class="container">
                 <div class="page-header">
                     <div class="page-title">
-                        <h3>Tabel Sewa Mobil</h3>
+                        <h3>Tabel Transaksi Mobil</h3>
                     </div>
                 </div>
 
@@ -64,8 +64,10 @@ if (!isset($_SESSION['users'])) {
                         <div class="statbox widget box box-shadow">
                             <div class="widget-header">
                                 <div class="row">
+                                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                        <h4> <a href="cetak_sewa.php" target="_blank" class="btn btn-primary btn-rounded toggle-vis mb-8 ml-2">Cetak Data</a></h4>
 
-
+                                    </div>
                                 </div>
                             </div>
                             <div class="widget-content widget-content-area">
@@ -103,10 +105,11 @@ if (!isset($_SESSION['users'])) {
                                                         </td>
                                                     <?php } else {
                                                     ?>
-                                                        <td class="align-center"><a href="../gambar/<?php echo $row['gambar']; ?>">Klik Sini</a></td>
+                                                        <td class="align-center"><?php echo "<img src='../gambar/$row[gambar]' width='70' height='90' />"; ?></td>
 
                                                     <?php
                                                     } ?>
+
                                                     <td><?php echo $row['total_harga']; ?></td>
                                                     <?php if ($row['status'] == "menunggu persetujuan") {
                                                     ?>
@@ -122,20 +125,7 @@ if (!isset($_SESSION['users'])) {
                                                     <?php } ?>
                                                     <td class="text-center">
                                                         <ul class="table-controls">
-                                                            <li>
-                                                                <a href="detail_sewa.php?id_transaksi=<?php echo  $row["id_transaksi"]; ?>" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="view"><i class="flaticon-view 2  p-1 br-6 mb-1"></i></a>
-                                                            </li>
-                                                            <?php if ($row['status'] == "selesai") { ?>
-                                                            <?php } elseif ($row['status'] == "batal") { ?>
-                                                            <?php } else { ?><li><a href="pengembalian.php?id_transaksi=<?php echo  $row["id_transaksi"]; ?>" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="flaticon-edit  p-1 br-6 mb-1"></i></a></li>
-                                                            <?php } ?>
-
-                                                            <?php if ($row['status'] == "menunggu persetujuan") { ?>
-                                                                <li><a href="update_batal1.php?id_transaksi=<?php echo  $row["id_transaksi"]; ?>" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="view"><i class="flaticon-cancel-2 p-1 br-6 mb-1"></i></a></li>
-                                                            <?php } else { ?>
-
-                                                            <?php
-                                                            } ?>
+                                                            <li><a href="cetak_detail_sewa.php?id_transaksi=<?php echo  $row["id_transaksi"]; ?>" target="_blank" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="flaticon-print p-1 br-6 mb-1"></i></a></li>
                                                         </ul>
                                                     </td>
 
@@ -184,42 +174,7 @@ if (!isset($_SESSION['users'])) {
 
     <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
     <script src="../plugins/table/datatable/datatables.js"></script>
-    <!-- NOTE TO Use Copy CSV Excel PDF Print Options You Must Include These Files  -->
-    <script src="../plugins/table/datatable/button-ext/dataTables.buttons.min.js"></script>
-    <script src="../plugins/table/datatable/button-ext/jszip.min.js"></script>
-    <script src="../plugins/table/datatable/button-ext/buttons.html5.min.js"></script>
-    <script src="../plugins/table/datatable/button-ext/buttons.print.min.js"></script>
-    <script>
-        $('#html5-extension').DataTable({
-            dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5 mb-md-0 mb-5"i><"col-md-7"p>>> >',
-            buttons: {
-                buttons: [{
-                        extend: 'copy',
-                        className: 'btn btn-default btn-rounded btn-sm mb-4'
-                    },
-                    {
-                        extend: 'csv',
-                        className: 'btn btn-default btn-rounded btn-sm mb-4'
-                    },
-                    {
-                        extend: 'excel',
-                        className: 'btn btn-default btn-rounded btn-sm mb-4'
-                    },
-                    {
-                        extend: 'print',
-                        className: 'btn btn-default btn-rounded btn-sm mb-4'
-                    }
-                ]
-            },
-            "language": {
-                "paginate": {
-                    "previous": "<i class='flaticon-arrow-left-1'></i>",
-                    "next": "<i class='flaticon-arrow-right'></i>"
-                },
-                "info": "Showing page _PAGE_ of _PAGES_"
-            }
-        });
-    </script>
+
     <!-- END PAGE LEVEL CUSTOM SCRIPTS -->
 </body>
 

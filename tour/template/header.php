@@ -16,7 +16,7 @@
             <li class="nav-item dropdown user-profile-dropdown pl-4 pr-lg-0 pr-2 ml-lg-2 mr-lg-4  align-self-center">
                 <a href="#" class="dropdown-toggle user">
                     <div class="user-profile d-lg-block d-none">
-                        <img src="../assets/img/90x90.jpg" alt="admin-profile" class="img-fluid">
+                        <img src="../gambar/admin.jpg" alt="admin-profile" class="img-fluid">
                     </div>
                     <i class="flaticon-user-7 d-lg-none d-block"></i>
                 </a>

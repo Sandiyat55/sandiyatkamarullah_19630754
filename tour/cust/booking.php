@@ -268,7 +268,7 @@ $sub_total = $subtotal += $total;
                             $supir = $_GET['supir'];
                             $tanggal_now = date("Y-m-d");
                             $jenis = "mobil";
-                            $status = "Pending";
+                            $status = "menunggu persetujuan";
                             $ambil = $conn->query("SELECT * FROM mobil WHERE id_mobil='$id_mobil'");
                             $pecah = $ambil->fetch_assoc();
                             $harga = $pecah["harga"];

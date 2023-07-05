@@ -65,7 +65,7 @@ error_reporting(0);
                                             <a href="../auth/user_account_setting.php?id_user=<?= $_SESSION['id_user'] ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Setting</a>
                                         </li>
                                         <li class="submenu dropdown">
-                                            <a href="../auth/user_account_setting.php" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pesanan Saya</a>
+                                            <a href="../cust/riwayat.php?id_user=<?= $_SESSION['id_user'] ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pesanan Saya</a>
                                         </li>
                                     </ul>
                                 </li>

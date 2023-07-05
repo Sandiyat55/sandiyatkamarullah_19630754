@@ -245,7 +245,7 @@ endforeach
                             $tanggal2 = date('Y-m-d', strtotime("+$jumlah_tanggal days", strtotime($pecah['tanggal'])));
                             $tanggal_now = date("Y-m-d");
                             $jenis = "wisata";
-                            $status = "Pending";
+                            $status = "menunggu persetujuan";
 
                             foreach ($_SESSION["cart"] as $id_wisata => $jumlah) {
                                 $ambil = $conn->query("SELECT * FROM wisata WHERE id_wisata='$id_wisata'");

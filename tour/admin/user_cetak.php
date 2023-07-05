@@ -12,7 +12,7 @@ if (!isset($_SESSION['users'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Tabel Paket Wisata | Travel Icha </title>
+    <title>Tabel User | Travel Icha </title>
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="../assets/css/loader.css" rel="stylesheet" type="text/css" />
@@ -54,7 +54,7 @@ if (!isset($_SESSION['users'])) {
             <div class="container">
                 <div class="page-header">
                     <div class="page-title">
-                        <h3>Tabel Paket Wisata</h3>
+                        <h3>Tabel Users</h3>
                     </div>
                 </div>
 
@@ -65,11 +65,9 @@ if (!isset($_SESSION['users'])) {
                             <div class="widget-header">
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                        <h4>
-                                            <a href="tambah_wisata.php" class="btn btn-primary btn-rounded toggle-vis mb-8 ml-2">Tambah Data</a>
-                                        </h4>
-                                    </div>
+                                        <h4> <a href="cetak_user.php" target="_blank" class="btn btn-primary btn-rounded toggle-vis mb-8 ml-2">Cetak Data</a></h4>
 
+                                    </div>
                                 </div>
                             </div>
                             <div class="widget-content widget-content-area">
@@ -78,56 +76,42 @@ if (!isset($_SESSION['users'])) {
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama </th>
-                                                <th>Kuota</th>
-                                                <th>Tanggal Berangkat
-
-                                                </th>
-                                                <th>Berapa Lama</th>
-                                                <th>Status</th>
-                                                <th>Harga</th>
+                                                <th>Username</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
                                                 <th>Gambar</th>
-                                                <th>Deskripsi</th>
-                                                <th>Action</th>
+                                                <th>No Hp</th>
+                                                <th>No Ktp</th>
+                                                <th>Alamat</th>
+                                                <th>Tanggal Lahir</th>
+                                                <th>Jenis Kelamin</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <?php
                                                 $no = 1;
-                                                $query = mysqli_query($conn, "SELECT * FROM wisata ORDER BY id_wisata DESC;");
+                                                $query = mysqli_query($conn, "SELECT * FROM users where not id_user='1' ORDER BY id_user DESC;");
                                                 while ($row = mysqli_fetch_assoc($query)) {
                                                 ?>
                                                     <td><?php echo $no++; ?></td>
-                                                    <td><?php echo $row['nama']; ?></td>
-                                                    <td><?php echo $row['kuota']; ?></td>
-                                                    <td><?php echo $row['tanggal']; ?></td>
-                                                    <td><?php echo $row['berapa_hari']; ?> hari</td>
-
-                                                    <?php if ($row['status'] == "Aktif") {
+                                                    <td><?php echo $row['username']; ?></td>
+                                                    <td><?php echo $row['email']; ?></td>
+                                                    <?php if ($row['role'] == "admin") {
                                                     ?>
-                                                        <td class="align-center"><span class="shadow-none badge badge-success"><?php echo $row['status']; ?></span></td>
+                                                        <td class="align-center"><span class="shadow-none badge badge-primary"><?php echo $row['role']; ?></span></td>
                                                     <?php } else {
                                                     ?>
-                                                        <td class="align-center"><span class="shadow-none badge badge-danger"><?php echo $row['status']; ?></span></td>
+                                                        <td class="align-center"><span class="shadow-none badge badge-warning"><?php echo $row['role']; ?></span></td>
                                                     <?php
                                                     } ?>
-                                                    <td>Rp. <?php echo number_format($row['harga']); ?>,00</td>
-                                                    <td class="align-center"><?php echo "<img src='../gambar/$row[gambar]' width='70' height='90' />"; ?></td>
-                                                    <td>
-                                                        <?php
-                                                        $kalimat    =  $row['deskripsi'];;
-                                                        $tampil_sebagian    = substr($kalimat, 0, 30);
-                                                        echo "$tampil_sebagian ...";
-                                                        ?>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <ul class="table-controls">
-                                                            <li><a href="edit_wisata.php?id_wisata=<?php echo  $row["id_wisata"]; ?>" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="flaticon-edit  p-1 br-6 mb-1"></i></a></li>
-                                                            <li><a href="delete_wisata.php?id_wisata=<?php echo  $row["id_wisata"]; ?>" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="flaticon-delete  p-1 br-6 mb-1"></i></a></li>
-                                                        </ul>
-                                                    </td>
-
+                                                    <td><?php echo $row['gambar']; ?></td>
+                                                    <td><?php echo $row['no_hp']; ?></td>
+                                                    <td><?php echo $row['no_ktp']; ?></td>
+                                                    <td><?php echo $row['alamat']; ?></td>
+                                                    <td><?php echo $row['tanggal_lahir']; ?></td>
+                                                    <td><?php echo $row['jenis_kelamin']; ?> </td>
                                             </tr>
                                         <?php } ?>
 
@@ -173,42 +157,7 @@ if (!isset($_SESSION['users'])) {
 
     <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
     <script src="../plugins/table/datatable/datatables.js"></script>
-    <!-- NOTE TO Use Copy CSV Excel PDF Print Options You Must Include These Files  -->
-    <script src="../plugins/table/datatable/button-ext/dataTables.buttons.min.js"></script>
-    <script src="../plugins/table/datatable/button-ext/jszip.min.js"></script>
-    <script src="../plugins/table/datatable/button-ext/buttons.html5.min.js"></script>
-    <script src="../plugins/table/datatable/button-ext/buttons.print.min.js"></script>
-    <script>
-        $('#html5-extension').DataTable({
-            dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5 mb-md-0 mb-5"i><"col-md-7"p>>> >',
-            buttons: {
-                buttons: [{
-                        extend: 'copy',
-                        className: 'btn btn-default btn-rounded btn-sm mb-4'
-                    },
-                    {
-                        extend: 'csv',
-                        className: 'btn btn-default btn-rounded btn-sm mb-4'
-                    },
-                    {
-                        extend: 'excel',
-                        className: 'btn btn-default btn-rounded btn-sm mb-4'
-                    },
-                    {
-                        extend: 'print',
-                        className: 'btn btn-default btn-rounded btn-sm mb-4'
-                    }
-                ]
-            },
-            "language": {
-                "paginate": {
-                    "previous": "<i class='flaticon-arrow-left-1'></i>",
-                    "next": "<i class='flaticon-arrow-right'></i>"
-                },
-                "info": "Showing page _PAGE_ of _PAGES_"
-            }
-        });
-    </script>
+
     <!-- END PAGE LEVEL CUSTOM SCRIPTS -->
 </body>
 

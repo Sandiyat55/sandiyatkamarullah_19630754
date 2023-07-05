@@ -1,6 +1,12 @@
 <?php
-session_start();
 include '../include/config.php';
+session_start();
+error_reporting(0);
+
+if (!isset($_SESSION['users'])) {
+    header("Location: ../auth/user_login.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">

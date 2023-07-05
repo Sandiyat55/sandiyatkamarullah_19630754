@@ -1,5 +1,12 @@
 <?php
 include '../include/config.php';
+session_start();
+error_reporting(0);
+
+if (!isset($_SESSION['users'])) {
+    header("Location: ../auth/user_login.php");
+}
+
 $sql  = "SELECT * from wisata WHERE id_wisata = '" . $_GET['id_wisata'] . "' ";
 $wisata = mysqli_query($conn, $sql);
 $p = mysqli_fetch_object($wisata);
@@ -212,48 +219,6 @@ $p = mysqli_fetch_object($wisata);
                         </div>
                     </div>
 
-                    <div id="iternary" class="accrodion-grp faq-accrodion mb-4" data-grp-name="faq-accrodion">
-                        <div class="accrodion active">
-                            <div class="accrodion-title rounded">
-                                <h5 class="mb-0"><span>Day 1</span> - Barcelona - Zaragoza - Madrid</h5>
-                            </div>
-                            <div class="accrodion-content" style="display: block;">
-                                <div class="inner">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, inventore cumque veniam, praesentium velit incidunt rem quas a, quos eos ipsum, reprehenderit voluptatem.</p>
-                                </div><!-- /.inner -->
-                            </div>
-                        </div>
-                        <div class="accrodion ">
-                            <div class="accrodion-title rounded">
-                                <h5 class="mb-0"><span>Day 2</span> - Zurich - Biel/Bienne - Neuchatel - Geneva</h5>
-                            </div>
-                            <div class="accrodion-content" style="display: none;">
-                                <div class="inner">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, inventore cumque veniam, praesentium velit incidunt rem quas a, quos eos ipsum, reprehenderit voluptatem.</p>
-                                </div><!-- /.inner -->
-                            </div>
-                        </div>
-                        <div class="accrodion">
-                            <div class="accrodion-title rounded">
-                                <h5 class="mb-0"><span>Day 3</span> - Enchanting Engelberg</h5>
-                            </div>
-                            <div class="accrodion-content" style="display: none;">
-                                <div class="inner">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, inventore cumque veniam, praesentium velit incidunt rem quas a, quos eos ipsum, reprehenderit voluptatem.</p>
-                                </div><!-- /.inner -->
-                            </div>
-                        </div>
-                        <div class="accrodion ">
-                            <div class="accrodion-title rounded">
-                                <h5 class="mb-0"><span>Day 4</span> - Barcelona - Zaragoza - Madrid</h5>
-                            </div>
-                            <div class="accrodion-content" style="display: none;">
-                                <div class="inner">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, inventore cumque veniam, praesentium velit incidunt rem quas a, quos eos ipsum, reprehenderit voluptatem.</p>
-                                </div><!-- /.inner -->
-                            </div>
-                        </div>
-                    </div>
 
                     <div id="single-map" class="single-map mb-4">
                         <h4>Map</h4>
@@ -279,9 +244,7 @@ $p = mysqli_fetch_object($wisata);
                                     <li>
                                         <a data-toggle="tab" href="#highlight" class="rounded box-shadow mb-2 border-all">Highlight</a>
                                     </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#iternary" class="rounded box-shadow mb-2 border-all">Iternary</a>
-                                    </li>
+
                                     <li>
                                         <a data-toggle="tab" href="#single-map" class="rounded box-shadow mb-2 border-all">Map</a>
                                     </li>
@@ -311,7 +274,7 @@ $p = mysqli_fetch_object($wisata);
                                                 <div class="form-group">
                                                     <div class="input-box">
                                                         <label>Kuota : <?php echo $p->kuota ?></label>
-                                            
+
                                                     </div>
 
                                                 </div>

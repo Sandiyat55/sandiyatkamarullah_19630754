@@ -3,7 +3,7 @@ session_start();
 error_reporting(0);
 include '../include/config.php';
 $id_transaksi = $_GET['id_transaksi'];
-$sql = mysqli_query($conn, "SELECT transaksi.*, users.*, mobil.id_mobil, mobil.nama_mobil,mobil.nomor_kendaraan,mobil.harga FROM transaksi INNER JOIN users ON transaksi.id_user = users.id_user INNER JOIN mobil ON transaksi.id_mobil = mobil.id_mobil where transaksi.id_transaksi='$id_transaksi'");
+$sql = mysqli_query($conn, "SELECT transaksi.*, users.id_user, users.username, users.email, users.no_hp,users.alamat,users.no_ktp, mobil.id_mobil, mobil.nama_mobil,mobil.nomor_kendaraan,mobil.harga FROM transaksi INNER JOIN users ON transaksi.id_user = users.id_user INNER JOIN mobil ON transaksi.id_mobil = mobil.id_mobil where transaksi.id_transaksi='$id_transaksi'");
 $row = mysqli_fetch_array($sql);
 ?>
 <!DOCTYPE html>
@@ -123,10 +123,14 @@ $row = mysqli_fetch_array($sql);
                         <div class="booking-border mb-4">
                             <h4 class="border-b pb-2 mb-2"></h4>
                         </div>
-                        <div class="booking-border d-flex">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" class="nir-btn me-2"> <i class="fa fa-envelope-open-text"></i> Bukti Pembayaran </button>
 
-                            <a href="#" class="nir-btn-black"><i class="fa fa-print"></i> Cetak</a>
+                        <div class="booking-border d-flex">
+                            <?php if ($row['gambar'] == "") { ?>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" class="nir-btn me-2"> <i class="fa fa-envelope-open-text"></i> Bukti Pembayaran </button>
+
+                            <?php } else { ?>
+                            <?php } ?>
+                            <a href="cetak_struk_sewa.php?id_transaksi=<?php echo  $row["id_transaksi"]; ?>" target="_blank" class="nir-btn-black"><i class="fa fa-print"></i> Cetak</a>
                         </div>
                     </div>
                 </div>
