@@ -13,6 +13,8 @@ if (isset($_GET['id_wisata'])) {
     // menampilkan data dari database yang mempunyai id=$id
     $query = "SELECT * FROM wisata WHERE id_wisata='$id_wisata'";
     $result = mysqli_query($conn, $query);
+    $sql  =   mysqli_query($conn, "SELECT * FROM
+    gambar where id_wisata='$id_wisata'");
     // jika data gagal diambil maka akan tampil error berikut
     if (!$result) {
         die("Query Error: " . mysqli_errno($conn) .
@@ -20,6 +22,7 @@ if (isset($_GET['id_wisata'])) {
     }
     // mengambil data dari database
     $data = mysqli_fetch_assoc($result);
+
     // apabila data tidak ada pada database maka akan dijalankan perintah ini
     if (!count($data)) {
         echo "<script>alert('Data tidak ditemukan pada database');window.location='tb_wisata.php';</script>";
@@ -112,14 +115,14 @@ if (isset($_GET['id_wisata'])) {
                                         </div>
                                     </div>
                                     <div class="form-row mb-2">
-                                     
+
                                         <div class="form-group col-md-10">
                                             <label for="tanggal">Tanggal</label>
                                             <input type="date" class="form-control-rounded form-control" value="<?php echo $data['tanggal']; ?>" id="tanggal" name="tanggal" placeholder="">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label for="tanggal">Berapa Lama</label>
-                                            <input type="text" class="form-control-rounded form-control" id="berapa_hari"  value="<?php echo $data['berapa_hari']; ?>" name="berapa_hari" placeholder=".. hari">
+                                            <input type="text" class="form-control-rounded form-control" id="berapa_hari" value="<?php echo $data['berapa_hari']; ?>" name="berapa_hari" placeholder=".. hari">
                                         </div>
                                     </div>
 
@@ -143,10 +146,25 @@ if (isset($_GET['id_wisata'])) {
                                         </div>
 
                                         <div class="form-group col-md-12">
-                                            <label for="gambar">Gambar</label>
+                                            <label for="gambar">Gambar Cover</label>
 
-                                            <input type="file" class="form-control-rounded form-control" name="gambar" id="gambar"> <br>
+                                            <input type="file" class="form-control-rounded form-control" name="foto" id="gambar"> <br>
                                             <img src="../gambar/<?php echo $data['gambar']; ?>" style="width: 120px;float: left;margin-bottom: 5px;">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="gambar">Gambar Deskripsi</label>
+
+                                            <input type="file" class="form-control-rounded form-control" name="gambar[]" id="gambar" multiple> <br>
+                                            <?php
+                                            if (mysqli_num_rows($sql) > 0) {
+                                                while ($fetch = mysqli_fetch_assoc($sql)) {
+                                            ?>
+                                                    <img src="../gambar/<?php echo $fetch['gambar'] ?>" style="float: left;margin:auto; padding: 10px; " height="120px" width="140">
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+
                                         </div>
                                     </div>
                                     <button type="reset" class="btn btn-button-8 btn-rounded mb-4 mt-3">Cancel</button>

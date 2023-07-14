@@ -143,12 +143,12 @@ if (isset($_GET['id_mobil'])) {
                                             <label for="status">Status</label>
                                             <select class="form-control-rounded form-control" id="status" name="status">
                                                 <option selected="<?php echo $data['status']; ?>">Pilih Status</option>
-                                                <option <?php if ($data['status'] == "Aktif") {
+                                                <option <?php if ($data['status'] == "ready") {
                                                             echo 'selected';
-                                                        } ?> value="Aktif">Aktif</option>
-                                                <option <?php if ($data['status'] == "Non Aktif") {
+                                                        } ?> value="ready">Ready</option>
+                                                <option <?php if ($data['status'] == "maintenance") {
                                                             echo 'selected';
-                                                        } ?> value="Non Aktif">Non Aktif</option>
+                                                        } ?> value="maintenance">Maintenance</option>
                                             </select>
 
                                         </div>

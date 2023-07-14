@@ -12,6 +12,10 @@ $now = date("Y-m-d", $tglplus);
 $sql  = "SELECT * from mobil WHERE id_mobil = '" . $_GET['id_mobil'] . "' ";
 $mobil = mysqli_query($conn, $sql);
 $p = mysqli_fetch_object($mobil);
+
+$sql2  = "SELECT * from users WHERE id_user = '" . $_SESSION['id_user'] . "' ";
+$user2 = mysqli_query($conn, $sql2);
+$p2 = mysqli_fetch_assoc($user2);
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
@@ -124,13 +128,19 @@ $p = mysqli_fetch_object($mobil);
                                         </div>
                                     </div>
                                 </div>
+                                <?php if ($_SESSION['id_user'] == "") { ?>
+                                    <div class="nir-btn w-100">Login terlebih dahulu <a href="../auth/user_account_setting.php?id_user=<?= $_SESSION['id_user'] ?>">(Klik Sini)</a></div>
 
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-0 text-center">
-                                        <button type="submit" name="submit" value="cek" class="nir-btn w-100"> booking now </button>
+                                <?php } else if ($p2['no_ktp'] == "") { ?>
+                                    <div class="nir-btn w-100">Harap melengkapi data profil terlebih dahulu <a href="../auth/user_account_setting.php?id_user=<?= $_SESSION['id_user'] ?>">(Klik Sini)</a></div>
+
+                                <?php } else { ?>
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-0 text-center">
+                                            <button type="submit" name="submit" value="cek" class="nir-btn w-100"> booking now </button>
+                                        </div>
                                     </div>
-                                </div>
-
+                                <?php } ?>
                             </form>
                         </div>
                     </div>
@@ -143,7 +153,7 @@ $p = mysqli_fetch_object($mobil);
                         $tanggal = $_POST['tanggal'];
                         $jumlah_tanggal = $jumlah - 1;
                         $tanggal2 = date('Y-m-d', strtotime("+$jumlah_tanggal days", strtotime($tanggal)));
-                        $sql     = "SELECT id_transaksi FROM cek WHERE tanggal between '$tanggal' AND '$tanggal2' AND id_mobil='$id_mobil' AND status!='Cancel'";
+                        $sql     = "SELECT id_transaksi FROM cek WHERE tanggal between '$tanggal' AND '$tanggal2' AND id_mobil='$id_mobil' AND status!='batal'";
                         $query     = mysqli_query($conn, $sql);
                         if (mysqli_num_rows($query) > 0) {
                             echo " <script> alert ('Mobil tidak tersedia di tanggal yang anda pilih, silahkan pilih tanggal lain!'); 

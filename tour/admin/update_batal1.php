@@ -5,7 +5,9 @@ include '../include/config.php';
 $id_transaksi = $_GET["id_transaksi"];
 $status = "batal";
 $sql = "UPDATE transaksi set status = '$status' where id_transaksi = '$id_transaksi'";
+$sql1 = "UPDATE cek set status = '$status' where id_transaksi = '$id_transaksi'";
 $result = mysqli_query($conn, $sql);
+$result = mysqli_query($conn, $sql1);
 if ($result) {
     echo "<script type='text/javascript'>
                  alert('Data Berhasil disimpan...');

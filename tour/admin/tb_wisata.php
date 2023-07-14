@@ -113,7 +113,7 @@ if (!isset($_SESSION['users'])) {
                                                     <?php
                                                     } ?>
                                                     <td>Rp. <?php echo number_format($row['harga']); ?>,00</td>
-                                                    <td class="align-center"><?php echo "<img src='../gambar/$row[gambar]' width='70' height='90' />"; ?></td>
+                                                    <td><a href="gambar_detail.php?id_wisata=<?php echo  $row["id_wisata"]; ?>"><i class="flaticon-view 2  p-1 br-6 mb-1"></i> View</a></td>
                                                     <td>
                                                         <?php
                                                         $kalimat    =  $row['deskripsi'];;
@@ -212,4 +212,4 @@ if (!isset($_SESSION['users'])) {
     <!-- END PAGE LEVEL CUSTOM SCRIPTS -->
 </body>
 
-</html>
+</html> 

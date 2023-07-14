@@ -11,7 +11,7 @@ if (isset($_GET['id_transaksi'])) {
     $id_transaksi = ($_GET["id_transaksi"]);
 
     // menampilkan data dari database yang mempunyai id=$id
-    $query = "SELECT transaksi.*, wisata.id_wisata, wisata.nama, wisata.berapa_hari, users.id_user, users.username,users.email, users.no_hp,users.alamat,users.no_ktp FROM transaksi INNER JOIN wisata ON transaksi.id_wisata = wisata.id_wisata INNER Join users ON transaksi.id_user = users.id_user WHERE id_transaksi='$id_transaksi' and jenis_transaksi = 'wisata' ORDER BY id_transaksi DESC";
+    $query = "SELECT transaksi.*, wisata.id_wisata, wisata.nama, wisata.tanggal, wisata.berapa_hari, users.id_user, users.username,users.email, users.no_hp,users.alamat,users.no_ktp FROM transaksi INNER JOIN wisata ON transaksi.id_wisata = wisata.id_wisata INNER Join users ON transaksi.id_user = users.id_user WHERE id_transaksi='$id_transaksi' and jenis_transaksi = 'wisata' ORDER BY id_transaksi DESC";
     $result = mysqli_query($conn, $query);
 
     // jika data gagal diambil maka akan tampil error berikut
@@ -88,10 +88,15 @@ if (isset($_GET['id_transaksi'])) {
                                         <div class="col-sm-6 mb-4">
                                             <h5 class="invoice-info-title">Detail Info</h5>
                                             <p class="invoice-serial-number"># <?php echo $data['id_transaksi'] ?></p>
+
                                         </div>
+
                                         <div class="col-sm-6 mb-4 text-sm-right">
-                                            <p class="invoice-order-status">Order Status: <?php echo $data['status'] ?></p>
-                                            <p class="invoice-order-date">Order Date: <?php echo $data['tanggal_booking'] ?></p>
+
+                                            <p class="invoice-order-status">Status Pesanan: <?php echo $data['status'] ?></p>
+                                            <p class="invoice-order-date">Tanggal Pesanan: <?php echo $data['tanggal_booking'] ?></p>
+                                            <p class="invoice-order-date">Tanggal Keberangkatan: <?php echo $data['tanggal'] ?></p>
+
                                         </div>
                                     </div>
 

@@ -89,6 +89,7 @@ $sum4 = mysqli_fetch_array($db4);
                                     </div>
                                     <div class="media-body text-right">
                                         <p class="widget-text mb-0">Car</p>
+
                                         <p class="widget-total-stats mt-2"><?= $sum2 ?> Car Orders</p>
                                     </div>
                                 </div>
@@ -134,6 +135,16 @@ $sum4 = mysqli_fetch_array($db4);
                         </div>
                     </div>
 
+                </div>
+                <div class="row">
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing">
+                        <div class="widget-content-area monthly-chart  br-4">
+                            <div class="widget-content widget-content-area">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -264,95 +275,6 @@ $sum4 = mysqli_fetch_array($db4);
 
                                 </div>
                             </div>
-
-
-
-                            <!-- <div class="row">
-                                <div class="col-lg-4 col-md-6 col-sm-2 col-12  align-self-center">
-                                    <h3>Statistics</h3>
-                                </div>
-                                <div class="col-lg-8 col-md-6 col-sm-10 col-12 mt-sm-0 mt-3">
-                                    <ul class="nav justify-content-sm-end justify-content-center monthly-chart-tab nav-pills" id="monthly-chart" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="monthly-chart-weekly-tab" data-toggle="pill" href="#monthly-chart-weekly" role="tab" aria-controls="monthly-chart-weekly" aria-selected="true">Weekly</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="monthly-chart-monthly-tab" data-toggle="pill" href="#monthly-chart-monthly" role="tab" aria-controls="monthly-chart-monthly" aria-selected="true">Monthly</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="monthly-chart-yearly-tab" data-toggle="pill" href="#monthly-chart-yearly" role="tab" aria-controls="monthly-chart-yearly" aria-selected="false">Yearly</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div> -->
-                            <!-- <div class="row">
-                                <div class="col-lg-12 col-md-12 col-12 mt-3">
-                                    <div class="tab-content" id="monthly-chartContent">
-                                        <div class="tab-pane fade show active" id="monthly-chart-weekly" role="tabpanel" aria-labelledby="monthly-chart-weekly-tab">
-                                            <div class="v-pv-weekly" style="height: 300px; width: 100%; margin-top: 30px;"></div>
-
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <div class="row mt-3">
-                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-12 text-sm-right text-center mb-3 mr-sm-3 px-xl-0">
-                                                        <div class="d-flex justify-content-sm-end  justify-content-center">
-                                                            <div class="d-m-visitors data-marker align-self-center"></div>
-                                                            <span class="visitors">Visitors : 9,823</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-12 text-sm-left text-center mb-3 ml-sm-3 px-xl-0">
-                                                        <div class="d-flex justify-content-sm-start  justify-content-center">
-                                                            <div class="d-m-page-view data-marker align-self-center"></div>
-                                                            <span class="page-view">Pageviews : 21,655</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="tab-pane fade" id="monthly-chart-monthly" role="tabpanel" aria-labelledby="monthly-chart-monthly-tab">
-                                            <div class="v-pv-monthly" style="height: 300px; width: 100%; margin-top: 30px;"></div>
-
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <div class="row mt-3">
-                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-12 text-sm-right text-center mb-3 mr-sm-3 px-xl-0">
-                                                        <div class="d-flex justify-content-sm-end  justify-content-center">
-                                                            <div class="d-m-visitors data-marker data-marker-success align-self-center"></div>
-                                                            <span class="visitors">Visitors : 19,823</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-12 text-sm-left text-center mb-3 ml-sm-3 px-xl-0">
-                                                        <div class="d-flex justify-content-sm-start  justify-content-center">
-                                                            <div class="d-m-page-view data-marker data-marker-secondary align-self-center"></div>
-                                                            <span class="page-view">Pageviews : 61,655</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="tab-pane fade" id="monthly-chart-yearly" role="tabpanel" aria-labelledby="monthly-chart-yearly-tab">
-                                            <div class="v-pv-yearly" style="height: 300px; width: 100%; margin-top: 30px;"></div>
-
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <div class="row mt-3">
-                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-12 text-sm-right text-center mb-3 mr-sm-3 px-xl-0">
-                                                        <div class="d-flex justify-content-sm-end  justify-content-center">
-                                                            <div class="d-m-visitors data-marker data-marker-success align-self-center"></div>
-                                                            <span class="visitors">Visitors : 80,823</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-5 col-md-5 col-sm-5 col-12 text-sm-left text-center mb-3 ml-sm-3 px-xl-0">
-                                                        <div class="d-flex justify-content-sm-start  justify-content-center">
-                                                            <div class="d-m-page-view data-marker data-marker-secondary align-self-center"></div>
-                                                            <span class="page-view">Pageviews : 1,21,655</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
 
@@ -391,6 +313,39 @@ $sum4 = mysqli_fetch_array($db4);
     <script src="../plugins/progressbar/progressbar.min.js"></script>
     <script src="../assets/js/default-dashboard/default-custom.js"></script>
     <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <?php
+
+
+    $noo = 1;
+    $queryy1 = mysqli_query($conn, "SELECT * from wisata where status ='Aktif'");
+    $queryy2 = mysqli_query($conn, "SELECT * from wisata where status ='Aktif' order by rating desc");
+    ?>
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [<?php while ($roww = mysqli_fetch_assoc($queryy1)) echo '"' . $roww['nama'] . '",' ?>],
+                datasets: [{
+                    label: 'penjualan',
+                    data: [<?php while ($roww = mysqli_fetch_assoc($queryy2)) echo '"' . $roww['rating'] . '",' ?>],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+
+        });
+    </script>
+
 
 </body>
 

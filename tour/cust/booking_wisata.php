@@ -1,6 +1,11 @@
 <?php
 include '../include/config.php';
 session_start();
+include '../include/config.php';
+
+if (!isset($_SESSION['users'])) {
+    header("Location: ../auth/user_login.php");
+}
 
 error_reporting(0);
 // echo "<pre>";
@@ -12,7 +17,9 @@ foreach ($_SESSION["cart"] as $id_wisata => $jumlah) :
     $total = $pecah["harga"] * $jumlah;
     $jumlah_tanggal = $pecah['berapa_hari'] - 1;
     $tanggal2 = date('Y-m-d', strtotime("+$jumlah_tanggal days", strtotime($pecah['tanggal'])));
+
 endforeach
+
 
 ?>
 <!DOCTYPE html>
@@ -81,10 +88,16 @@ endforeach
                             <h3 class="border-b pb-2 mb-2">Traveller Information</h3>
                             <form method="POST" class="mb-2">
                                 <div class="row">
+                                    <?php
+                                    $que = mysqli_query($conn, "SELECT * FROM wisata where id_wisata ='$id_wisata'");
+                                    $d = mysqli_fetch_assoc($que);
+                                    $rating = $d['rating'] + $jumlah;
+                                    ?>
                                     <input type="hidden" name="id_user" value="<?php echo $_SESSION['id_user'] ?>">
                                     <input type="hidden" name="id_wisata" value="<?php echo $_SESSION['id_wisata'] ?>">
                                     <input type="hidden" name="jumlah" value="<?php echo $_SESSION['jumlah'] ?>">
                                     <input type="hidden" name="tanggal" value="<?php echo $pecah['tanggal'] ?>">
+                                    <input type="hidden" name="rating" value="<?php echo $rating ?>">
 
 
                                     <div class="col-md-6">
@@ -238,7 +251,7 @@ endforeach
                         if (isset($_POST['booking'])) {
                             $id_transaksi = $_POST['id_transaksi'];
                             $id_user = $_SESSION['id_user'];
-                            $id_mobil = $_SESSION['id_mobil'];
+                            $rating = $_POST['rating'];
                             $tanggal = $_POST['tanggal'];
                             $jumlah = $_SESSION['jumlah'];
                             $jumlah_tanggal = $pecah['berapa_hari'] - 1;
@@ -256,6 +269,11 @@ endforeach
                                 $sql1 = "INSERT INTO transaksi (id_user, jenis_transaksi, id_wisata, harga, qty, total_harga, status, tanggal, tanggal_booking) VALUES ('$id_user', '$jenis','$id_wisata', '$harga', '$jumlah', '$total', '$status', '$tanggal', '$tanggal_now')";
                                 $save = mysqli_query($conn, $sql1);
                                 $id_transaksi_barusan = $conn->insert_id;
+                                if ($save) {
+                                    $sql2   = mysqli_query($conn, "UPDATE wisata set rating = '$rating' where id_wisata = '$id_wisata'");
+                                    $sql1   = "INSERT INTO cek (`id_transaksi`, `id_wisata`, `qty`, `tanggal`, `status`) VALUES ('$id_transaksi_barusan','$id_wisata','$jumlah','$tanggal','$status')";
+                                    $save = mysqli_query($conn, $sql1);
+                                }
                             }
                             unset($_SESSION["cart"]);
                             if ($save) {

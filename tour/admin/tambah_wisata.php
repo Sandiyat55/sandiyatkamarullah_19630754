@@ -107,16 +107,20 @@ if (!isset($_SESSION['users'])) {
                                         <div class="form-group mb-8">
                                             <label for="ket">Deskripsi</label>
                                             <textarea class="form-control-rounded form-control" name="ket" id="ket" cols="70" rows="5"></textarea>
-                                        </div>
-
+                                      </div>
                                         <div class="form-group col-md-12">
-                                            <label for="gambar">Gambar</label>
-                                            <input type="file" class="form-control-rounded form-control" name="gambar" id="gambar">
+                                            <label for="gambar">Gambar Cover</label>
+                                            <input type="file" class="form-control-rounded form-control" name="foto" id="foto">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="gambar">Gambar Deskripsi</label>
+                                            <input type="file" class="form-control-rounded form-control" name="gambar[]" id="gambar" multiple>
                                         </div>
                                     </div>
                                     <button type="reset" class="btn btn-button-8 btn-rounded mb-4 mt-3">Cancel</button>
                                     <button type="submit" name="insertdata" class="btn btn-button-7 btn-rounded mb-4 mt-3">Simpan</button>
                                 </form>
+                            
                             </div>
                         </div>
                     </div>

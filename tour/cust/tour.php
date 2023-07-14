@@ -3,10 +3,9 @@ include '../include/config.php';
 session_start();
 error_reporting(0);
 
-if (!isset($_SESSION['users'])) {
-    header("Location: ../auth/user_login.php");
-}
-
+$sql2  = "SELECT * from users WHERE id_user = '" . $_SESSION['id_user'] . "' ";
+$user2 = mysqli_query($conn, $sql2);
+$p2 = mysqli_fetch_assoc($user2);
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
@@ -68,55 +67,113 @@ if (!isset($_SESSION['users'])) {
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
+                <?php if (!isset($_GET['cari']) == "") { ?>
 
-
-                <div class="row">
-                    <?php
-                    $sql = "SELECT * FROM wisata where status='aktif' ORDER BY id_wisata DESC LIMIT 5";
-                    $wisata = mysqli_query($conn, $sql);
-                    if (mysqli_num_rows($wisata) > 0) {
-                        while ($p = mysqli_fetch_array($wisata)) {
-                    ?>
-                            <div class="col-lg-6 col-md-6 mb-4">
-                                <div class="trend-item rounded box-shadow">
-                                    <div class="trend-image position-relative">
-                                        <a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>">
-                                            <img src="../gambar/<?php echo $p['gambar'] ?>" height="250" width="150" class="primary-image">
-                                        </a>
-                                        <div class="color-overlay"></div>
-                                    </div>
-                                    <div class="trend-content p-4 pt-5 position-relative">
-                                        <div class="trend-meta bg-theme white px-3 py-2 rounded">
-                                            <div class="entry-author">
-                                                <i class="icon-calendar"></i>
-                                                <span class="fw-bold"> <?php echo substr($p['berapa_hari'], 0, 30) ?> Days Tours</span>
-                                            </div>
+                    <div class="row">
+                        <?php
+                        $sql = "SELECT * FROM wisata where nama like '%" . $_GET['cari'] . "%' and status='aktif' ORDER BY id_wisata DESC";
+                        $wisata = mysqli_query($conn, $sql);
+                        if (mysqli_num_rows($wisata) > 0) {
+                            while ($p = mysqli_fetch_array($wisata)) {
+                        ?>
+                                <div class="col-lg-6 col-md-6 mb-4">
+                                    <div class="trend-item rounded box-shadow">
+                                        <div class="trend-image position-relative">
+                                            <a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>">
+                                                <img src="../gambar/<?php echo $p['gambar'] ?>" height="250" width="150" class="primary-image">
+                                            </a>
+                                            <div class="color-overlay"></div>
                                         </div>
-                                        <h5 class="theme mb-1"><i class="flaticon-location-pin"></i> Indonesia</h5>
-                                        <h3 class="mb-1"><a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>"><?php echo substr($p['nama'], 0, 30) ?></a></h3>
-                                        <div class="rating-main d-flex align-items-center pb-2">
-                                            <div class="rating">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
+                                        <div class="trend-content p-4 pt-5 position-relative">
+                                            <div class="trend-meta bg-theme white px-3 py-2 rounded">
+                                                <div class="entry-author">
+                                                    <i class="icon-calendar"></i>
+                                                    <span class="fw-bold"> <?php echo substr($p['berapa_hari'], 0, 30) ?> Days Tours</span>
+                                                </div>
                                             </div>
-                                            <span class="ms-2"></span>
-                                        </div>
-                                        <p class=" border-b pb-2 mb-2"><?php echo substr($p['deskripsi'], 0, 30) ?></p>
-                                        <div class="entry-meta">
-                                            <div class="entry-author d-flex align-items-center">
-                                                <p class="mb-0"><span class="theme fw-bold fs-5">Rp. <?php echo number_format($p['harga']) ?></span> | Per seat</p>
+                                            <h5 class="theme mb-1"><i class="flaticon-location-pin"></i> Indonesia</h5>
+                                            <h3 class="mb-1"><a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>"><?php echo substr($p['nama'], 0, 30) ?></a></h3>
+                                            <div class="rating-main d-flex align-items-center pb-2">
+                                                <div class="rating">
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                </div>
+                                                <span class="ms-2"></span>
+                                            </div>
+                                            <p class=" border-b pb-2 mb-2"><?php echo substr($p['deskripsi'], 0, 30) ?></p>
+                                            <div class="entry-meta">
+                                                <div class="entry-author d-flex align-items-center">
+                                                    <p class="mb-0"><span class="theme fw-bold fs-5">Rp. <?php echo number_format($p['harga']) ?></span> | Per orang</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                    <?php }
-                    } ?>
-
-                </div>
+                            <?php }
+                        } else { ?>
+                            <center>
+                                <h3>Paket Wisata Tidak tersedia</h3>
+                            </center>
+                        <?php
+                        }  ?>
+                    </div>
+                <?php } else { ?>
+                    <div class="row">
+                        <?php
+                        $sql = "SELECT * FROM wisata where status='aktif' ORDER BY id_wisata DESC";
+                        $wisata = mysqli_query($conn, $sql);
+                        if (mysqli_num_rows($wisata) > 0) {
+                            while ($p = mysqli_fetch_array($wisata)) {
+                        ?>
+                                <div class="col-lg-6 col-md-6 mb-4">
+                                    <div class="trend-item rounded box-shadow">
+                                        <div class="trend-image position-relative">
+                                            <a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>">
+                                                <img src="../gambar/<?php echo $p['gambar'] ?>" height="250" width="150" class="primary-image">
+                                            </a>
+                                            <div class="color-overlay"></div>
+                                        </div>
+                                        <div class="trend-content p-4 pt-5 position-relative">
+                                            <div class="trend-meta bg-theme white px-3 py-2 rounded">
+                                                <div class="entry-author">
+                                                    <i class="icon-calendar"></i>
+                                                    <span class="fw-bold"> <?php echo substr($p['berapa_hari'], 0, 30) ?> Days Tours</span>
+                                                </div>
+                                            </div>
+                                            <h5 class="theme mb-1"><i class="flaticon-location-pin"></i> Indonesia</h5>
+                                            <h3 class="mb-1"><a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>"><?php echo substr($p['nama'], 0, 30) ?></a></h3>
+                                            <div class="rating-main d-flex align-items-center pb-2">
+                                                <div class="rating">
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                    <span class="fa fa-star checked"></span>
+                                                </div>
+                                                <span class="ms-2"></span>
+                                            </div>
+                                            <p class=" border-b pb-2 mb-2"><?php echo substr($p['deskripsi'], 0, 30) ?></p>
+                                            <div class="entry-meta">
+                                                <div class="entry-author d-flex align-items-center">
+                                                    <p class="mb-0"><span class="theme fw-bold fs-5">Rp. <?php echo number_format($p['harga']) ?></span> | Per orang</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php }
+                        } else { ?>
+                            <center>
+                                <h3>Paket Wisata Tidak tersedia</h3>
+                            </center>
+                        <?php
+                        }  ?>
+                    </div>
+                <?php
+                } ?>
             </div>
             <div class="col-lg-4 ps-lg-4">
                 <div class="sidebar-sticky">
@@ -129,18 +186,16 @@ if (!isset($_SESSION['users'])) {
                                     </div>
                                     <div class="col-lg-12 mb-2">
                                         <div class="form-group">
-                                            <div class="input-box">
-                                                <label>Enter Keyword</label>
-                                                <input type="text" placeholder="Enter Your Keyword">
-                                            </div>
-                                        </div>
-                                    </div>
+                                            <form method="get" action="" class="ms-auto position-relative">
+                                                <div class="input-box">
+                                                    <label>Enter Keyword</label>
+                                                    <input type="text" class="form-control ps-3" name="cari" placeholder="Nama Paket Wisata">
+                                                    <br>
+                                                    <a href="tour.php" class="nir-btn w-100"><i class="fa fa-close mr-2"></i> Reset Pencarian</a>
 
 
-                                    <div class="col-lg-12">
-                                        <div class="form-group mb-0 text-center">
-                                            <a href="#" class="nir-btn w-100"><i class="fa fa-search mr-2"></i> Search
-                                                Now</a>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -157,14 +212,7 @@ if (!isset($_SESSION['users'])) {
         </div>
     </div>
 </section>
-<!-- top Destination ends -->
 
-<!-- Discount action starts -->
-
-<!-- Discount action Ends -->
-
-<!-- partner starts -->
-<!-- partner ends -->
 
 <!-- footer starts -->
 <?php include "../template/footer_u.php" ?>
@@ -173,16 +221,6 @@ if (!isset($_SESSION['users'])) {
 <!-- Back to top start -->
 <div id="back-to-top">
     <a href="#"></a>
-</div>
-<!-- Back to top ends -->
-
-<!-- search popup -->
-<div id="search1">
-    <button type="button" class="close">×</button>
-    <form>
-        <input type="search" value="" placeholder="type keyword(s) here" />
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form>
 </div>
 
 
@@ -193,7 +231,7 @@ if (!isset($_SESSION['users'])) {
 <script src="../assets_u/js/bootstrap.min.js"></script>
 <script src="../assets_u/js/particles.js"></script>
 <script src="../assets_u/js/particlerun.js"></script>
-<script src="../assets_u/js/plugin.js"></script>
+
 <script src="../assets_u/js/main.js"></script>
 <script src="../assets_u/js/custom-swiper.js"></script>
 <script src="../assets_u/js/custom-nav.js"></script>

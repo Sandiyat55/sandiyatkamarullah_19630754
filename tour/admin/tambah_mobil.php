@@ -116,8 +116,8 @@ if (!isset($_SESSION['users'])) {
                                             <label for="status">Status</label>
                                             <select class="form-control-rounded form-control" id="status" name="status">
                                                 <option selected="">Pilih Status</option>
-                                                <option value="Aktif">Aktif</option>
-                                                <option value="Non Aktif">Non Aktif</option>
+                                                <option value="ready">Ready</option>
+                                                <option value="maintenance">Maintenance</option>
                                             </select>
                                         </div>
                                     </div>

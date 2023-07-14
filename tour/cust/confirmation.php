@@ -1,5 +1,10 @@
 <?php
 session_start();
+include '../include/config.php';
+
+if (!isset($_SESSION['users'])) {
+    header("Location: ../auth/user_login.php");
+}
 error_reporting(0);
 include '../include/config.php';
 $id_transaksi = $_GET['id_transaksi'];

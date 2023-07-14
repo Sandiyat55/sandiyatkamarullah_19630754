@@ -2,14 +2,18 @@
 include '../include/config.php';
 session_start();
 error_reporting(0);
+$sql2  = "SELECT * from users WHERE id_user = '" . $_SESSION['id_user'] . "' ";
+$user2 = mysqli_query($conn, $sql2);
+$p2 = mysqli_fetch_assoc($user2);
 
-if (!isset($_SESSION['users'])) {
-    header("Location: ../auth/user_login.php");
-}
+$que  = "SELECT * from wisata WHERE id_wisata = '" . $_GET['id_wisata'] . "' ";
+$wisata = mysqli_query($conn, $que);
+$sql  =   mysqli_query($conn, "SELECT * FROM
+gambar where  id_wisata = '" . $_GET['id_wisata'] . "'");
 
-$sql  = "SELECT * from wisata WHERE id_wisata = '" . $_GET['id_wisata'] . "' ";
-$wisata = mysqli_query($conn, $sql);
+
 $p = mysqli_fetch_object($wisata);
+
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
@@ -28,7 +32,168 @@ $p = mysqli_fetch_object($wisata);
     <link href="../assets_u/css/style.css" rel="stylesheet" type="text/css">
     <!--Plugin CSS-->
     <link href="../assets_u/css/plugin.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <style type="text/css">
+        * {
+            font-family: 'Lato', sans-serif;
+        }
 
+        .dp-wrap {
+            margin: 0 auto;
+            position: relative;
+            perspective: 1000px;
+            height: 100%;
+        }
+
+        .dp-slider {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+        }
+
+        .dp-slider div {
+            transform-style: preserve-3d;
+        }
+
+        .dp_item {
+
+            position: absolute;
+            text-align: center;
+            height: 100%;
+            width: 100%;
+        }
+
+
+        #dp-next,
+        #dp-prev {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            height: 35px;
+            width: 35px;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        #dp-prev {
+            left: 80px;
+            transform: rotate(180deg);
+        }
+
+        #dp-dots {
+            position: absolute;
+            bottom: 25px;
+            z-index: 12;
+            left: 38%;
+            cursor: default;
+        }
+
+        #dp-dots li {
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            background: #ffff;
+            border-radius: 50%;
+        }
+
+        #dp-dots li:hover {
+            cursor: pointer;
+            background: #FA8C8C;
+            transition: background .3s;
+        }
+
+
+
+        .dp_item {
+            width: 100%;
+            height: 500px;
+        }
+
+        .dp-content,
+        .dp-img {
+            height: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .dp_item {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+
+        }
+
+        .dp-content {
+
+            display: inline-block;
+            width: 100%;
+        }
+
+        .dp-content h2 {
+            color: #41414B;
+            font-family: Circular Std Bold;
+            font-size: 48px;
+            max-width: 460px;
+            margin-top: 8px;
+            margin-bottom: 0px;
+        }
+
+        .dp-content p {
+            color: #74747F;
+            max-width: 490px;
+            margin-top: 15px;
+            font-size: 24px;
+        }
+
+        .dp-content .site-btn {
+            margin-top: 15px;
+            font-size: 13px;
+            padding: 19px 40px;
+        }
+
+
+
+        .dp-img img {
+            object-fit: cover;
+            object-position: center;
+        }
+
+        #dp-slider,
+        .dp-img img {
+            height: 500px;
+        }
+
+        #dp-slider .dp_item:hover:not(:first-child) {
+            cursor: pointer;
+        }
+
+        .site-btn {
+            color: #fff;
+            font-size: 18px;
+            font-family: "Circular Std Medium";
+            background: #FA8282;
+            padding: 14px 43px;
+            display: inline-block;
+            border-radius: 2px;
+            position: relative;
+            top: -12px;
+            text-decoration: none;
+        }
+
+        .site-btn:hover {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        h1 {
+            margin: 150px auto 30px auto;
+            text-align: center;
+        }
+    </style>
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
@@ -107,6 +272,7 @@ $p = mysqli_fetch_object($wisata);
 </div>
 <!-- banner ends -->
 
+
 <!-- top Destination starts -->
 <section class="trending pt-6 pb-0 bg-lgrey">
     <div class="container">
@@ -131,8 +297,16 @@ $p = mysqli_fetch_object($wisata);
                             </div>
                         </div>
 
-                        <div class="description-images mb-4">
-                            <img src="../gambar/<?php echo $p->gambar ?>" alt="" class="w-100 rounded">
+
+                        <div class="description-images mb-4 overflow-hidden">
+                            <div class="thumbnail-images position-relative">
+                                <div class="slider-store rounded overflow-hidden">
+                                    <div>
+                                        <img src="../gambar/<?php echo $p->gambar ?>" alt="" class="w-100 rounded">
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
 
                         <div class="description mb-2">
@@ -229,7 +403,66 @@ $p = mysqli_fetch_object($wisata);
                         </div>
                     </div>
 
+                    <div class="description-images mb-4 overflow-hidden">
+                        <div class="thumbnail-images position-relative">
 
+
+                            <h4>Gambar Deksripsi</h4>
+                            <div id="slider">
+                                <div class="dp-wrap">
+                                    <div id="dp-slider">
+                                        <?php
+                                        if (mysqli_num_rows($sql) > 0) {
+                                            while ($fetch = mysqli_fetch_assoc($sql)) {
+                                        ?>
+                                                <div class="dp_item" data-position="1">
+
+                                                    <div class="dp-img">
+                                                        <img src="../gambar/<?php echo $fetch['gambar'] ?>" class="w-100 rounded">
+                                                    </div>
+                                                </div>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+
+                                    <span id="dp-next">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.401 51.401">
+                                            <defs>
+                                                <style>
+                                                    .cls-1 {
+                                                        fill: none;
+                                                        stroke: #fa8c8c;
+                                                        stroke-miterlimit: 10;
+                                                        stroke-width: 7px;
+                                                    }
+                                                </style>
+                                            </defs>
+                                            <path id="Rectangle_4_Copy" data-name="Rectangle 4 Copy" class="cls-1" d="M32.246,0V33.178L0,31.953" transform="translate(0.094 25.276) rotate(-45)" />
+                                        </svg>
+                                    </span>
+
+                                    <span id="dp-prev">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.401 51.401">
+                                            <defs>
+                                                <style>
+                                                    .cls-1 {
+                                                        fill: none;
+                                                        stroke: #fa8c8c;
+                                                        stroke-miterlimit: 10;
+                                                        stroke-width: 7px;
+                                                    }
+                                                </style>
+                                            </defs>
+                                            <path id="Rectangle_4_Copy" data-name="Rectangle 4 Copy" class="cls-1" d="M32.246,0V33.178L0,31.953" transform="translate(0.094 25.276) rotate(-45)" />
+                                        </svg>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -298,8 +531,13 @@ $p = mysqli_fetch_object($wisata);
                                                     <button type="disable" href="" class="nir-btn w-100">Kuota terpenuhi</button>
                                                 </div>
                                             </div>
-                                        <?php } else { ?>
+                                        <?php } else if ($_SESSION['id_user'] == "") { ?>
+                                            <div class="nir-btn w-100">Login terlebih dahulu <a href="../auth/user_account_setting.php?id_user=<?= $_SESSION['id_user'] ?>">(Klik Sini)</a></div>
 
+                                        <?php } else if ($p2['no_ktp'] == "") { ?>
+                                            <div class="nir-btn w-100">Harap melengkapi data profil terlebih dahulu <a href="../auth/user_account_setting.php?id_user=<?= $_SESSION['id_user'] ?>">(Klik Sini)</a></div>
+
+                                        <?php } else { ?>
                                             <div class="col-lg-12">
                                                 <div class="form-group mb-0 text-center">
                                                     <button type="submit" name="submit" value="cek" class="nir-btn w-100">Pesan
@@ -309,11 +547,11 @@ $p = mysqli_fetch_object($wisata);
                                         <?php } ?>
                                     </form>
                                     <?php
-
                                     if (isset($_POST['submit'])) {
                                         $jumlah = $_POST['jumlah'];
                                         echo "<script>window.location.href = 'input_tour.php?id_wisata=$p->id_wisata&jumlah=$jumlah'</script>";
                                     } ?>
+
                                 </div>
                             </div>
                         </div>
@@ -370,10 +608,81 @@ $p = mysqli_fetch_object($wisata);
 <script src="../assets_u/js/bootstrap.min.js"></script>
 <script src="../assets_u/js/particles.js"></script>
 <script src="../assets_u/js/particlerun.js"></script>
-<!-- <script src="../assets_u/js/plugin.js"></script> -->
+
+<script src="../assets_u/plugins.js"></script>
 <script src="../assets_u/js/main.js"></script>
 <script src="../assets_u/js/custom-accordian.js"></script>
 <script src="../assets_u/js/custom-nav.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+
+        function detect_active() {
+            // get active
+            var get_active = $("#dp-slider .dp_item:first-child").data("class");
+            $("#dp-dots li").removeClass("active");
+            $("#dp-dots li[data-class=" + get_active + "]").addClass("active");
+        }
+        $("#dp-next").click(function() {
+            var total = $(".dp_item").length;
+            $("#dp-slider .dp_item:first-child").hide().appendTo("#dp-slider").fadeIn();
+            $.each($('.dp_item'), function(index, dp_item) {
+                $(dp_item).attr('data-position', index + 1);
+            });
+            detect_active();
+
+        });
+
+        $("#dp-prev").click(function() {
+            var total = $(".dp_item").length;
+            $("#dp-slider .dp_item:last-child").hide().prependTo("#dp-slider").fadeIn();
+            $.each($('.dp_item'), function(index, dp_item) {
+                $(dp_item).attr('data-position', index + 1);
+            });
+
+            detect_active();
+        });
+
+        $("#dp-dots li").click(function() {
+            $("#dp-dots li").removeClass("active");
+            $(this).addClass("active");
+            var get_slide = $(this).attr('data-class');
+            console.log(get_slide);
+            $("#dp-slider .dp_item[data-class=" + get_slide + "]").hide().prependTo("#dp-slider").fadeIn();
+            $.each($('.dp_item'), function(index, dp_item) {
+                $(dp_item).attr('data-position', index + 1);
+            });
+        });
+
+
+        $("body").on("click", "#dp-slider .dp_item:not(:first-child)", function() {
+            var get_slide = $(this).attr('data-class');
+            console.log(get_slide);
+            $("#dp-slider .dp_item[data-class=" + get_slide + "]").hide().prependTo("#dp-slider").fadeIn();
+            $.each($('.dp_item'), function(index, dp_item) {
+                $(dp_item).attr('data-position', index + 1);
+            });
+
+            detect_active();
+        });
+    });
+</script>
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36251023-1']);
+    _gaq.push(['_setDomainName', 'jqueryscript.net']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
 </body>
 
 </html>

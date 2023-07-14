@@ -293,78 +293,7 @@ error_reporting(0);
     </section>
     <!-- top Destination ends -->
 
-    <!-- best tour Starts -->
-    <section class="trending pb-0">
-        <div class="container">
-            <div class="row align-items-center justify-content-between mb-6 ">
-                <div class="col-lg-7">
-                    <div class="section-title text-center text-lg-start">
-                        <h4 class="mb-1 theme1">Top Pick</h4>
-                        <h2 class="mb-1">Best <span class="theme">Tour Packages</span></h2>
 
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                </div>
-            </div>
-
-            <div class="trend-box">
-                <div class="row item-slider">
-                    <?php
-                    $sql = "SELECT * FROM wisata where status = 'aktif' ORDER BY id_wisata DESC LIMIT 3";
-                    $wisata = mysqli_query($conn, $sql);
-                    if (mysqli_num_rows($wisata) > 0) {
-                        while ($p = mysqli_fetch_array($wisata)) {
-                    ?>
-                            <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
-
-                                <div class="trend-item rounded box-shadow">
-
-                                    <div class="trend-image position-relative">
-                                        <a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>">
-                                            <img src="../gambar/<?php echo $p['gambar'] ?>" height="250" width="150" class="primary-image">
-                                        </a>
-                                        <div class="color-overlay"></div>
-                                    </div>
-                                    <div class="trend-content p-4 pt-5 position-relative">
-                                        <div class="trend-meta bg-theme white px-3 py-2 rounded">
-                                            <div class="entry-author">
-                                                <i class="icon-calendar"></i>
-                                                <span class="fw-bold"> <?php echo substr($p['berapa_hari'], 0, 30) ?> Days Tours</span>
-                                            </div>
-                                        </div>
-                                        <h5 class="theme mb-1"><i class="flaticon-location-pin"></i> Indonesia</h5>
-                                        <h3 class="mb-1"><a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>"> <?php echo substr($p['nama'], 0, 30) ?></a></h3>
-                                        <div class="rating-main d-flex align-items-center pb-2">
-                                            <div class="rating">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                            </div>
-                                            <span class="ms-2"></span>
-                                        </div>
-                                        <p class=" border-b pb-2 mb-2"><?php echo substr($p['deskripsi'], 0, 30) ?></p>
-                                        <div class="entry-meta">
-                                            <div class="entry-author d-flex align-items-center">
-                                                <p class="mb-0"><span class="theme fw-bold fs-5"> Rp. <?php echo number_format($p['harga']) ?></span> | Per seat
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                    <?php
-                        }
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-
-    </section>
 
 
     <!-- Discount action Ends -->

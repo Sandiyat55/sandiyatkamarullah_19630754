@@ -88,10 +88,17 @@ if (isset($_GET['id_transaksi'])) {
                                         <div class="col-sm-6 mb-4">
                                             <h5 class="invoice-info-title">Detail Info</h5>
                                             <p class="invoice-serial-number"># <?php echo $data['id_transaksi'] ?></p>
+                                            <p class="invoice-order-status">Status Pesanan: <?php echo $data['status'] ?></p>
+                                            <p class="invoice-order-date">Tanggal Pesanan: <?php echo $data['tanggal_booking'] ?></p>
                                         </div>
+                                        <?php $jumlah_tanggal = $data['qty'];
+                                        $tanggal2 = date('Y-m-d', strtotime("+$jumlah_tanggal days", strtotime($data['tanggal']))); ?>
                                         <div class="col-sm-6 mb-4 text-sm-right">
-                                            <p class="invoice-order-status">Order Status: <?php echo $data['status'] ?></p>
-                                            <p class="invoice-order-date">Order Date: <?php echo $data['tanggal_booking'] ?></p>
+
+
+                                            <p class="invoice-order-date">Tanggal Rental: <?php echo $data['tanggal'] ?></p>
+                                            <p class="invoice-order-date">Tanggal Pengembalian: <?php echo $tanggal2 ?></p>
+                                            <p class="invoice-order-date">Berapa lama: <?php echo $data['qty'] ?> hari</p>
                                         </div>
                                     </div>
 

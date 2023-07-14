@@ -1,7 +1,6 @@
 <?php
 session_start();
 include '../include/config.php';
-
 if (!isset($_SESSION['users'])) {
     header("Location: auth/user_login.php");
 } ?>
@@ -109,7 +108,7 @@ if (!isset($_SESSION['users'])) {
                                                     <td><?php echo $row['harga']; ?></td>
                                                     <td class="align-center"><?php echo "<img src='../gambar/$row[gambar]' width='70' height='90' />"; ?></td>
                                                     <td><?php echo $row['seat']; ?></td>
-                                                    <?php if ($row['status'] == "Aktif") {
+                                                    <?php if ($row['status'] == "ready") {
                                                     ?>
                                                         <td class="align-center"><span class="shadow-none badge badge-success"><?php echo $row['status']; ?></span></td>
                                                     <?php } else {

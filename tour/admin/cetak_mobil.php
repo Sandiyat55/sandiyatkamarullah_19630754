@@ -94,7 +94,7 @@ $tglnow = $data;
                         <td><?php echo $row['harga']; ?></td>
                         <td class="align-center"><?php echo "<img src='../gambar/$row[gambar]' width='70' height='90' />"; ?></td>
                         <td><?php echo $row['seat']; ?></td>
-                        <?php if ($row['status'] == "Aktif") {
+                        <?php if ($row['status'] == "ready") {
                         ?>
                             <td class="align-center"><?php echo $row['status']; ?></td>
                         <?php } else {

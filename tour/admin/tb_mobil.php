@@ -12,7 +12,7 @@ if (!isset($_SESSION['users'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Tabel Paket Mobil | Travel Icha </title>
+    <title>Tabel Mobil | Travel Icha </title>
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="../assets/css/loader.css" rel="stylesheet" type="text/css" />
@@ -54,7 +54,7 @@ if (!isset($_SESSION['users'])) {
             <div class="container">
                 <div class="page-header">
                     <div class="page-title">
-                        <h3>Tabel Paket Mobil</h3>
+                        <h3>Tabel Mobil</h3>
                     </div>
                 </div>
 
@@ -111,7 +111,7 @@ if (!isset($_SESSION['users'])) {
                                                     <td><?php echo $row['harga']; ?></td>
                                                     <td class="align-center"><?php echo "<img src='../gambar/$row[gambar]' width='70' height='90' />"; ?></td>
                                                     <td><?php echo $row['seat']; ?></td>
-                                                    <?php if ($row['status'] == "Aktif") {
+                                                    <?php if ($row['status'] == "ready") {
                                                     ?>
                                                         <td class="align-center"><span class="shadow-none badge badge-success"><?php echo $row['status']; ?></span></td>
                                                     <?php } else {

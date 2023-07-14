@@ -1,11 +1,16 @@
 <?php
 include '../include/config.php';
 session_start();
+include '../include/config.php';
+
+if (!isset($_SESSION['users'])) {
+    header("Location: ../auth/user_login.php");
+}
 
 error_reporting(0);
 $id_mobil = $_GET['id_mobil'];
 $jumlah = $_GET['jumlah'];
-$jumlah_tanggal = $jumlah - 1;
+$jumlah_tanggal = $jumlah;
 $supir = $_GET['supir'];
 $tanggal = $_GET['tanggal'];
 
@@ -140,13 +145,12 @@ $sub_total = $subtotal += $total;
                                     <div aria-labelledby="paypal-tab" class="tab-pane fade" id="paypal" role="tabpanel">
                                         <div class="paypal-card">
                                             <h5 class="mb-2 border-b pb-2"><i class="fab fa-paypal"></i> Transfer Bank</h5>
+
                                             <ul class="">
-                                                <li class="d-block">To make the payment process secure and complete you will be redirected to Paypal Website.</li>
-                                                <li class="d-block">
-                                                    <a href="" class="theme">Checkout via Paypal <i class="fa fa-long-arrow-alt-right"></i></a>
-                                                </li>
-                                                <li class="d-block">The total Amount you will be charged is: <span class="fw-bold theme">$ 245.50</span></li>
+                                                <li class="d-block">Transaksi di proses ketika pembayaran sudah dilakukan</li>
+                                                <li class="d-block">Lakukan pembayaran hanya di rekening a/n Sandiyat Kamarullah : <span class="fw-bold theme">73878298683 - BRI</span></li>
                                             </ul>
+
                                         </div>
                                     </div>
                                 </div>
