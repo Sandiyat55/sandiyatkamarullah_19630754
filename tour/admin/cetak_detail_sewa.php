@@ -181,7 +181,10 @@
                             ?>
                                 <tr>
                                     <td><?php echo $no++; ?></td>
-                                    <td><?php echo $row['nama_mobil']; ?></td>
+                                    <?php if ($row['supir'] == "tidak") { ?>
+                                        <td><?php echo $row['nama_mobil']; ?></td>
+                                    <?php } else { ?> <td><?php echo $row['nama_mobil']; ?> + Driver</td>
+                                    <?php } ?>
                                     <td class="text-right"><?php echo number_format($row['harga']); ?></td>
                                     <td class="text-right"><?php echo $row['qty']; ?></td>
                                     <td class="text-right"><?php echo number_format($row['total_harga']); ?></td>
@@ -192,11 +195,20 @@
                 </div>
             </div>
         </div>
-
+        <?php $supirr = (80000 * $data['qty']) ?>
         <div class="row mt-4">
             <div class="col-12">
                 <div class="invoice-total-amounts text-right">
                     <div class="row">
+                        <?php if ($data['supir'] == "tidak") { ?>
+                        <?php } else { ?>
+                            <div class="col-sm-10 col-7 text-right">
+                                <p class="mb-3">Fee Supir: </p>
+                            </div>
+                            <div class="col-sm-2 col-5">
+                                <p class="mb-3">Rp <?php echo number_format($supirr); ?></p>
+                            </div>
+                        <?php } ?>
                         <div class="col-sm-10 col-7 text-right">
                             <p class="mb-3">Subtotal: </p>
                         </div>

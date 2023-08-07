@@ -92,7 +92,9 @@ $p2 = mysqli_fetch_assoc($user2);
                                                 </div>
                                             </div>
                                             <h5 class="theme mb-1"><i class="flaticon-location-pin"></i> Indonesia</h5>
-                                            <h3 class="mb-1"><a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>"><?php echo substr($p['nama'], 0, 30) ?></a></h3>
+                                            <a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>">
+                                                <h2 class="mb-1 nir-btn w-100 text-white"><?php echo substr($p['nama'], 0, 30) ?> </h2>
+                                            </a>
                                             <div class="rating-main d-flex align-items-center pb-2">
                                                 <div class="rating">
                                                     <span class="fa fa-star checked"></span>
@@ -106,7 +108,7 @@ $p2 = mysqli_fetch_assoc($user2);
                                             <p class=" border-b pb-2 mb-2"><?php echo substr($p['deskripsi'], 0, 30) ?></p>
                                             <div class="entry-meta">
                                                 <div class="entry-author d-flex align-items-center">
-                                                    <p class="mb-0"><span class="theme fw-bold fs-5">Rp. <?php echo number_format($p['harga']) ?></span> | Per orang</p>
+                                                    <p class="mb-0"><span class="theme fw-bold fs-5">Rp. <?php echo number_format($p['harga']) ?></span> | <?php echo substr($p['kuota'], 0, 30) ?> orang </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,7 +146,10 @@ $p2 = mysqli_fetch_assoc($user2);
                                                 </div>
                                             </div>
                                             <h5 class="theme mb-1"><i class="flaticon-location-pin"></i> Indonesia</h5>
-                                            <h3 class="mb-1"><a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>"><?php echo substr($p['nama'], 0, 30) ?></a></h3>
+                                            <a href="tour_detail.php?id_wisata=<?php echo $p['id_wisata'] ?>">
+                                                <h2 class="mb-1 nir-btn w-100 text-white"><?php echo substr($p['nama'], 0, 40) ?> </h2>
+                                            </a>
+
                                             <div class="rating-main d-flex align-items-center pb-2">
                                                 <div class="rating">
                                                     <span class="fa fa-star checked"></span>
@@ -158,7 +163,7 @@ $p2 = mysqli_fetch_assoc($user2);
                                             <p class=" border-b pb-2 mb-2"><?php echo substr($p['deskripsi'], 0, 30) ?></p>
                                             <div class="entry-meta">
                                                 <div class="entry-author d-flex align-items-center">
-                                                    <p class="mb-0"><span class="theme fw-bold fs-5">Rp. <?php echo number_format($p['harga']) ?></span> | Per orang</p>
+                                                    <p class="mb-0"><span class="theme fw-bold fs-5">Rp. <?php echo number_format($p['harga']) ?></span> | <?php echo substr($p['kuota'], 0, 30) ?> orang</p>
                                                 </div>
                                             </div>
                                         </div>

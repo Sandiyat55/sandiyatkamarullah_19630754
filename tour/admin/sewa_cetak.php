@@ -79,6 +79,7 @@ if (!isset($_SESSION['users'])) {
                                                 <th>Mobil</th>
                                                 <th>Nama</th>
                                                 <th>Tanggal</th>
+                                                <th>Tanggal Kembali</th>
                                                 <th>Bukti Pembayaran</th>
                                                 <th>Total Harga</th>
                                                 <th>Status</th>
@@ -92,42 +93,45 @@ if (!isset($_SESSION['users'])) {
                                                 $no = 1;
                                                 $query = mysqli_query($conn, "SELECT transaksi.*, mobil.id_mobil, mobil.nama_mobil, users.id_user, users.username FROM transaksi INNER JOIN mobil ON transaksi.id_mobil = mobil.id_mobil INNER Join users ON transaksi.id_user = users.id_user where jenis_transaksi = 'mobil' ORDER BY id_transaksi DESC;");
                                                 while ($row = mysqli_fetch_assoc($query)) {
+                                                ?><?php $jumlah_tanggal = $row['qty'];
+                                                    $date_kembali = date('Y-m-d', strtotime("+$jumlah_tanggal days", strtotime($row['tanggal']))); ?>
+                                                <td><?php echo $no++; ?></td>
+                                                <td><?php echo $row['nama_mobil']; ?></td>
+                                                <td><?php echo $row['username']; ?></td>
+                                                <td><?php echo $row['tanggal']; ?></td>
+                                                <td><?php echo $date_kembali; ?></td>
+
+
+                                                <?php if ($row['gambar'] == "") {
                                                 ?>
-                                                    <td><?php echo $no++; ?></td>
-                                                    <td><?php echo $row['nama_mobil']; ?></td>
-                                                    <td><?php echo $row['username']; ?></td>
-                                                    <td><?php echo $row['tanggal']; ?></td>
+                                                    <td class="align-center">
+                                                        Belum Ada Pembayaran
+                                                    </td>
+                                                <?php } else {
+                                                ?>
+                                                    <td class="align-center"><?php echo "<img src='../gambar/$row[gambar]' width='70' height='90' />"; ?></td>
 
-                                                    <?php if ($row['gambar'] == "") {
-                                                    ?>
-                                                        <td class="align-center">
-                                                            Belum Ada Pembayaran
-                                                        </td>
-                                                    <?php } else {
-                                                    ?>
-                                                        <td class="align-center"><?php echo "<img src='../gambar/$row[gambar]' width='70' height='90' />"; ?></td>
-
-                                                    <?php
+                                                <?php
                                                     } ?>
 
-                                                    <td><?php echo $row['total_harga']; ?></td>
-                                                    <?php if ($row['status'] == "menunggu persetujuan") {
-                                                    ?>
-                                                        <td class="align-center"><span class="shadow-none badge badge-warning"><?php echo $row['status']; ?></span></td>
-                                                    <?php } elseif ($row['status'] == "disetujui") {
-                                                    ?>
-                                                        <td class="align-center"><span class="shadow-none badge badge-primary"><?php echo $row['status']; ?></span></td>
-                                                    <?php
+                                                <td><?php echo $row['total_harga']; ?></td>
+                                                <?php if ($row['status'] == "menunggu persetujuan") {
+                                                ?>
+                                                    <td class="align-center"><span class="shadow-none badge badge-warning"><?php echo $row['status']; ?></span></td>
+                                                <?php } elseif ($row['status'] == "disetujui") {
+                                                ?>
+                                                    <td class="align-center"><span class="shadow-none badge badge-primary"><?php echo $row['status']; ?></span></td>
+                                                <?php
                                                     } elseif ($row['status'] == "selesai") { ?>
-                                                        <td class="align-center"><span class="shadow-none badge badge-success"><?php echo $row['status']; ?></span></td>
-                                                    <?php  } else { ?>
-                                                        <td class="align-center"><span class="shadow-none badge badge-danger"><?php echo $row['status']; ?></span></td>
-                                                    <?php } ?>
-                                                    <td class="text-center">
-                                                        <ul class="table-controls">
-                                                            <li><a href="cetak_detail_sewa.php?id_transaksi=<?php echo  $row["id_transaksi"]; ?>" target="_blank" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="flaticon-print p-1 br-6 mb-1"></i></a></li>
-                                                        </ul>
-                                                    </td>
+                                                    <td class="align-center"><span class="shadow-none badge badge-success"><?php echo $row['status']; ?></span></td>
+                                                <?php  } else { ?>
+                                                    <td class="align-center"><span class="shadow-none badge badge-danger"><?php echo $row['status']; ?></span></td>
+                                                <?php } ?>
+                                                <td class="text-center">
+                                                    <ul class="table-controls">
+                                                        <li><a href="cetak_detail_sewa.php?id_transaksi=<?php echo  $row["id_transaksi"]; ?>" target="_blank" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="flaticon-print p-1 br-6 mb-1"></i></a></li>
+                                                    </ul>
+                                                </td>
 
                                             </tr>
                                         <?php } ?>

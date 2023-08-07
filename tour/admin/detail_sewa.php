@@ -167,8 +167,8 @@ if (isset($_GET['id_transaksi'])) {
                                                         <tr>
                                                             <th scope="col">No</th>
                                                             <th scope="col">Unit Name</th>
-                                                            <th class="text-right" scope="col">Price</th>
-                                                            <th class="text-right" scope="col">Qty</th>
+                                                            <th class="text-right" scope="col">Harga Mobil</th>
+                                                            <th class="text-right" scope="col">Jumlah Hari</th>
                                                             <th class="text-right" scope="col">Total</th>
                                                         </tr>
                                                     </thead>
@@ -180,10 +180,13 @@ if (isset($_GET['id_transaksi'])) {
                                                         ?>
                                                             <tr>
                                                                 <td><?php echo $no++; ?></td>
-                                                                <td><?php echo $row['nama_mobil']; ?></td>
+                                                                <?php if ($row['supir'] == "tidak") { ?>
+                                                                    <td><?php echo $row['nama_mobil']; ?></td>
+                                                                <?php } else { ?> <td><?php echo $row['nama_mobil']; ?> + Driver</td>
+                                                                <?php } ?>
                                                                 <td class="text-right"><?php echo number_format($row['harga']); ?></td>
                                                                 <td class="text-right"><?php echo $row['qty']; ?></td>
-                                                                <td class="text-right"><?php echo number_format($row['total_harga']); ?></td>
+                                                                <td class="text-right"><?php echo number_format($row['harga'] * $row['qty']); ?></td>
                                                             </tr>
                                                         <?php } ?>
                                                     </tbody>
@@ -191,11 +194,20 @@ if (isset($_GET['id_transaksi'])) {
                                             </div>
                                         </div>
                                     </div>
-
+                                    <?php $supirr = (80000 * $data['qty']) ?>
                                     <div class="row mt-4">
                                         <div class="col-12">
                                             <div class="invoice-total-amounts text-right">
                                                 <div class="row">
+                                                    <?php if ($data['supir'] == "tidak") { ?>
+                                                    <?php } else { ?>
+                                                        <div class="col-sm-10 col-7 text-right">
+                                                            <p class="mb-3">Fee Supir: </p>
+                                                        </div>
+                                                        <div class="col-sm-2 col-5">
+                                                            <p class="mb-3">Rp <?php echo number_format($supirr); ?></p>
+                                                        </div>
+                                                    <?php } ?>
                                                     <div class="col-sm-10 col-7 text-right">
                                                         <p class="mb-3">Subtotal: </p>
                                                     </div>

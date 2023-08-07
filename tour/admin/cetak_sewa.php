@@ -65,6 +65,7 @@ $tglnow = $data;
                     <th>Mobil</th>
                     <th>Nama</th>
                     <th>Tanggal</th>
+                    <th>Tanggal Kembali</th>
                     <th>Gambar</th>
                     <th>Total Harga</th>
                     <th>Status</th>
@@ -79,10 +80,14 @@ $tglnow = $data;
                     $query = mysqli_query($conn, "SELECT transaksi.*, mobil.id_mobil, mobil.nama_mobil, users.id_user, users.username FROM transaksi INNER JOIN mobil ON transaksi.id_mobil = mobil.id_mobil INNER Join users ON transaksi.id_user = users.id_user where jenis_transaksi = 'mobil' ORDER BY id_transaksi DESC;");
                     while ($row = mysqli_fetch_assoc($query)) {
                     ?>
+                        <?php $jumlah_tanggal = $row['qty'];
+                        $date_kembali = date('Y-m-d', strtotime("+$jumlah_tanggal days", strtotime($row['tanggal']))); ?>
                         <td><?php echo $no++; ?></td>
                         <td><?php echo $row['nama_mobil']; ?></td>
                         <td><?php echo $row['username']; ?></td>
                         <td><?php echo $row['tanggal']; ?></td>
+                        <td><?php echo $date_kembali; ?></td>
+
                         <?php if ($row['gambar'] == "") {
                         ?>
                             <td class="align-center">

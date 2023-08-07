@@ -102,7 +102,7 @@ $tglnow = $data;
                             </td>
                         <?php } else {
                         ?>
-                            <td class="align-center"><?php echo "<img src='../gambar/$row[gambar]' width='70' height='90' />"; ?></td>
+                            <td class="align-center"><?php echo "<img src='../gambar/$row[gambar_pengembalian]' width='70' height='90' />"; ?></td>
 
                         <?php
                         } ?>

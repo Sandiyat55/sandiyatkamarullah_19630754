@@ -12,6 +12,7 @@ $id_mobil = $_GET['id_mobil'];
 $jumlah = $_GET['jumlah'];
 $jumlah_tanggal = $jumlah;
 $supir = $_GET['supir'];
+$biaya_supir = 80000 * $jumlah;
 $tanggal = $_GET['tanggal'];
 
 $subtotal = 0;
@@ -20,7 +21,8 @@ $tanggal2 = date('Y-m-d', strtotime("+$jumlah_tanggal days", strtotime($tanggal)
 
 $ambil = $conn->query("SELECT * FROM mobil WHERE id_mobil='$id_mobil'");
 $pecah = $ambil->fetch_assoc();
-$total = $pecah["harga"] * $jumlah;
+$total_supir =   $total = ($pecah["harga"] * $jumlah) + $biaya_supir;
+$total =   $total = ($pecah["harga"] * $jumlah);
 $sub_total = $subtotal += $total;
 // echo "<pre>";
 // print_r($pecah);
@@ -99,6 +101,13 @@ $sub_total = $subtotal += $total;
                                     <input type="hidden" name="jumlah" value="<?php echo $jumlah ?>">
                                     <input type="hidden" name="tanggal" value="<?php echo $tanggal ?>">
                                     <input type="hidden" name="supir" value="<?php echo $supir ?>">
+                                    <?php if ($supir == "iya") { ?>
+                                        <input type="hidden" name="total" value="<?php echo $total_supir ?>">
+                                    <?php } else {
+                                    ?>
+                                        <input type="hidden" name="total" value="<?php echo $total ?>">
+                                    <?php
+                                    } ?>
 
 
                                     <div class="col-md-6">
@@ -242,7 +251,9 @@ $sub_total = $subtotal += $total;
                                 </tr>
                                 <tr>
                                     <td>driver fee</td>
-                                    <td class="theme2">free</td>
+                                    <?php if ($supir == "iya") { ?> <td class="theme2">Rp. <?php echo number_format($biaya_supir);  ?></td> <?php } else { ?>
+                                        <td class="theme2">free</td>
+                                    <?php } ?>
                                 </tr>
                                 <tr>
                                     <td>Booking Fee</td>
@@ -250,13 +261,19 @@ $sub_total = $subtotal += $total;
                                 </tr>
                                 <tr>
                                     <td>Total</td>
-                                    <td class="theme2">Rp. <?php echo number_format($total);  ?></td>
+                                    <?php if ($supir == "iya") { ?> <td class="theme2">Rp. <?php echo number_format($total_supir);  ?></td> <?php } else { ?>
+                                        <td class="theme2">Rp. <?php echo number_format($total);  ?></td>
+                                    <?php } ?>
+
                                 </tr>
                             </tbody>
                             <tfoot class="bg-title">
                                 <tr>
                                     <th class="font-weight-bold white">Amount</th>
-                                    <th class="font-weight-bold white">Rp. <?php echo number_format($sub_total);  ?></th>
+                                    <?php if ($supir == "iya") { ?> <th class="font-weight-bold white">Rp. <?php echo number_format($total_supir);  ?></th> <?php } else { ?>
+                                        <th class="font-weight-bold white">Rp. <?php echo number_format($total);  ?></th>
+                                    <?php } ?>
+
                                 </tr>
                             </tfoot>
                         </table>
@@ -272,11 +289,12 @@ $sub_total = $subtotal += $total;
                             $supir = $_GET['supir'];
                             $tanggal_now = date("Y-m-d");
                             $jenis = "mobil";
+                            $total = $_POST['total'];
                             $status = "menunggu persetujuan";
                             $ambil = $conn->query("SELECT * FROM mobil WHERE id_mobil='$id_mobil'");
                             $pecah = $ambil->fetch_assoc();
                             $harga = $pecah["harga"];
-                            $total = $pecah["harga"] * $jumlah;
+                       
 
                             $cek = 0;
 

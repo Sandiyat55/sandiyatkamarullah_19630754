@@ -94,8 +94,8 @@ endforeach
                                     $rating = $d['rating'] + $jumlah;
                                     ?>
                                     <input type="hidden" name="id_user" value="<?php echo $_SESSION['id_user'] ?>">
-                                    <input type="hidden" name="id_wisata" value="<?php echo $_SESSION['id_wisata'] ?>">
-                                    <input type="hidden" name="jumlah" value="<?php echo $_SESSION['jumlah'] ?>">
+                                    <input type="hidden" name="id_wisata" value="<?php echo $id_wisata ?>">
+                                    <input type="hidden" name="jumlah" value="<?php echo $jumlah ?>">
                                     <input type="hidden" name="tanggal" value="<?php echo $pecah['tanggal'] ?>">
                                     <input type="hidden" name="rating" value="<?php echo $rating ?>">
 
@@ -253,7 +253,8 @@ endforeach
                             $id_user = $_SESSION['id_user'];
                             $rating = $_POST['rating'];
                             $tanggal = $_POST['tanggal'];
-                            $jumlah = $_SESSION['jumlah'];
+                            $jumlah = $_POST['jumlah'];
+                            $id_wisata = $_POST['id_wisata'];
                             $jumlah_tanggal = $pecah['berapa_hari'] - 1;
                             $tanggal2 = date('Y-m-d', strtotime("+$jumlah_tanggal days", strtotime($pecah['tanggal'])));
                             $tanggal_now = date("Y-m-d");

@@ -190,6 +190,7 @@ $sum4 = mysqli_fetch_array($db4);
                                                 <tbody>
                                                     <tr>
                                                         <?php
+
                                                         $sqltour = mysqli_query($conn, "SELECT transaksi.*, wisata.id_wisata, wisata.nama, users.id_user, users.username FROM transaksi INNER JOIN wisata ON transaksi.id_wisata = wisata.id_wisata INNER Join users ON transaksi.id_user = users.id_user where jenis_transaksi = 'wisata' ORDER BY id_transaksi DESC limit 4;");
                                                         while ($rowtour = mysqli_fetch_assoc($sqltour)) {
                                                         ?>
@@ -197,7 +198,9 @@ $sum4 = mysqli_fetch_array($db4);
                                                             <td><?php echo $rowtour['nama']; ?></td>
                                                             <td><?php echo $rowtour['username']; ?></td>
                                                             <td><?php echo $rowtour['tanggal']; ?></td>
-                                                            <td class="align-center"><?php echo "<img src='../gambar/$rowtour[gambar]' width='70' height='90' />"; ?></td>
+                                                            <?php if ($rowtour['gambar'] == "") { ?><td class="align-center">Belum ada pembayaran</td> <?php } else { ?>
+                                                                <td class="align-center"><?php echo "<img src='../gambar/$rowtour[gambar]' width='70' height='90' />"; ?></td>
+                                                            <?php } ?>
                                                             <td><?php echo $rowtour['total_harga']; ?></td>
                                                             <?php if ($rowtour['status'] == "menunggu persetujuan") {
                                                             ?>
@@ -239,16 +242,16 @@ $sum4 = mysqli_fetch_array($db4);
                                                     <tr>
                                                         <?php
                                                         $no = 1;
-
-                                                        $sqlmobil = mysqli_query($conn, "SELECT transaksi.*, users.username, users.id_user , mobil.id_mobil, mobil.nama_mobil,mobil.nomor_kendaraan,mobil.harga FROM transaksi INNER JOIN mobil ON transaksi.id_mobil = mobil.id_mobil INNER JOIN users ON transaksi.id_user = users.id_user  where transaksi.jenis_transaksi = 'mobil' ORDER BY id_transaksi DESC limit 4;");
+                                                        $sqlmobil = mysqli_query($conn, "SELECT transaksi.*, users.username, users.id_user , mobil.id_mobil, mobil.nama_mobil ,mobil.nomor_kendaraan, mobil.harga FROM transaksi INNER JOIN mobil ON transaksi.id_mobil = mobil.id_mobil INNER JOIN users ON transaksi.id_user = users.id_user  where transaksi.jenis_transaksi = 'mobil' ORDER BY id_transaksi DESC limit 4;");
                                                         while ($rowmobil = mysqli_fetch_assoc($sqlmobil)) {
                                                         ?>
                                                             <td><?php echo $rowmobil['id_transaksi'] ?></td>
                                                             <td><?php echo $rowmobil['nama_mobil']; ?></td>
                                                             <td><?php echo $rowmobil['username']; ?></td>
                                                             <td><?php echo $rowmobil['tanggal']; ?></td>
-                                                            <td class="align-center"><?php echo "<img src='../gambar/$rowmobil[gambar]' width='70' height='90' />"; ?></td>
-                                                            <td><?php echo $rowmobil['total_harga']; ?></td>
+                                                            <?php if ($rowmobil['gambar'] == "") { ?><td class="align-center">Belum ada pembayaran</td> <?php } else { ?>
+                                                                <td class="align-center"><?php echo "<img src='../gambar/$rowmobil[gambar]' width='70' height='90' />"; ?></td>
+                                                            <?php } ?> <td><?php echo $rowmobil['total_harga']; ?></td>
                                                             <?php if ($rowmobil['status'] == "menunggu persetujuan") {
                                                             ?>
                                                                 <td class="align-center"><span class="shadow-none badge badge-warning"><?php echo $rowmobil['status']; ?></span></td>
@@ -319,7 +322,7 @@ $sum4 = mysqli_fetch_array($db4);
 
 
     $noo = 1;
-    $queryy1 = mysqli_query($conn, "SELECT * from wisata where status ='Aktif'");
+    $queryy1 = mysqli_query($conn, "SELECT * from wisata where status ='Aktif' order by rating desc");
     $queryy2 = mysqli_query($conn, "SELECT * from wisata where status ='Aktif' order by rating desc");
     ?>
 

@@ -128,6 +128,7 @@ $p2 = mysqli_fetch_assoc($user2);
                                         </div>
                                     </div>
                                 </div>
+
                                 <?php if ($_SESSION['id_user'] == "") { ?>
                                     <div class="nir-btn w-100">Login terlebih dahulu <a href="../auth/user_account_setting.php?id_user=<?= $_SESSION['id_user'] ?>">(Klik Sini)</a></div>
 
@@ -141,6 +142,7 @@ $p2 = mysqli_fetch_assoc($user2);
                                         </div>
                                     </div>
                                 <?php } ?>
+
                             </form>
                         </div>
                     </div>
@@ -191,8 +193,9 @@ $p2 = mysqli_fetch_assoc($user2);
                                         Saat Anda bertemu dengan staf rental, cek kondisi mobil dengan staf.
                                         Setelah itu, baca dan tanda tangan perjanjian rental.
                                         <br>
-                                        <b>dengan driver: </b> Biaya tercantum belum termasuk makan harian supir, akomodasi penginapan supir, tip(optional) dan bbm. Harap langsung dibayar ke supir.
+                                        <b>dengan driver: </b>Biaya supir (makan, dan jasa) 80 ribu/hari. Biaya tercantum belum termasuk akomodasi penginapan supir, tip(optional) dan bbm. Harap langsung dibayar ke supir.
                                     </p>
+
                                 </div>
                             </center>
                         </div>
