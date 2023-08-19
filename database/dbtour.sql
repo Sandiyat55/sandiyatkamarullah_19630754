@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Agu 2023 pada 17.22
+-- Waktu pembuatan: 18 Agu 2023 pada 08.18
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 5.6.40
 
@@ -58,7 +58,12 @@ INSERT INTO `cek` (`id_transaksi`, `id_mobil`, `id_wisata`, `qty`, `tanggal`, `s
 (14, 0, 3, '2', '2023-08-31', 'menunggu persetujuan'),
 (15, 0, 4, '4', '2023-08-31', 'menunggu persetujuan'),
 (16, 4, 0, '', '2023-08-10', 'menunggu verified'),
-(17, 4, 0, '', '2023-08-11', 'menunggu verified');
+(17, 4, 0, '', '2023-08-11', 'menunggu verified'),
+(18, 0, 3, '1', '2023-08-31', 'menunggu persetujuan'),
+(19, 0, 2, '1', '2023-08-31', 'menunggu persetujuan'),
+(20, 0, 2, '1', '2023-08-31', 'menunggu persetujuan'),
+(21, 0, 5, '1', '2023-09-10', 'menunggu persetujuan'),
+(22, 0, 3, '1', '2023-08-31', 'menunggu persetujuan');
 
 --
 -- Trigger `cek`
@@ -190,7 +195,12 @@ INSERT INTO `transaksi` (`id_transaksi`, `jenis_transaksi`, `id_mobil`, `id_wisa
 (14, 'wisata', 0, 3, 2, '', 500000, 2, 1000000, 'menunggu persetujuan', '', '', '2023-08-31', '2023-08-06', '', ''),
 (15, 'wisata', 0, 4, 2, '', 2500000, 4, 10000000, 'menunggu persetujuan', '', '', '2023-08-31', '2023-08-06', '', ''),
 (16, 'mobil', 4, 0, 1, 'iya', 35000, 1, 115000, 'menunggu persetujuan', '', '', '2023-08-10', '2023-08-07', '', ''),
-(17, 'mobil', 4, 0, 2, 'iya', 35000, 1, 115000, 'menunggu persetujuan', '', '', '2023-08-11', '2023-08-07', '', '');
+(17, 'mobil', 4, 0, 2, 'iya', 35000, 1, 115000, 'menunggu persetujuan', '', '', '2023-08-11', '2023-08-07', '', ''),
+(18, 'wisata', 0, 3, 2, '', 500000, 1, 500000, 'menunggu persetujuan', '', '', '2023-08-31', '2023-08-17', '', ''),
+(19, 'wisata', 0, 2, 2, '', 800000, 1, 800000, 'menunggu persetujuan', '', '', '2023-08-31', '2023-08-17', '', ''),
+(20, 'wisata', 0, 2, 2, '', 800000, 1, 800000, 'menunggu persetujuan', '', '', '2023-08-31', '2023-08-17', '', ''),
+(21, 'wisata', 0, 5, 2, '', 800000, 1, 800000, 'menunggu persetujuan', '', '', '2023-09-10', '2023-08-17', '', ''),
+(22, 'wisata', 0, 3, 2, '', 500000, 1, 500000, 'menunggu persetujuan', '', '', '2023-08-31', '2023-08-17', '', '');
 
 --
 -- Trigger `transaksi`
@@ -256,10 +266,10 @@ CREATE TABLE `wisata` (
 
 INSERT INTO `wisata` (`id_wisata`, `nama`, `tanggal`, `harga`, `gambar`, `deskripsi`, `status`, `kuota`, `berapa_hari`, `rating`) VALUES
 (1, 'Paket Garuda', '2023-08-31', '2500000', 'wisata5.jpg', 'Paket 5 hari 4 malam\r\n- siring kotabaru\r\n- pulau birah-birahan\r\n- goa temulangan\r\n- samber gelap\r\n- pantai teluk tamiang \r\n- tanjung dewa kotabaru', 'Aktif', '9', '5', '3'),
-(2, 'Paket Merah', '2023-08-31', '800000', 'wisata3.jpg', 'Paket 3 hari 2 malam\r\n- siring kotabaru\r\n- goa temulangan\r\n- pantai teluk tamiang \r\n- tanjung dewa kotabaru', 'Aktif', '10', '3', '2'),
-(3, 'Paket Putih', '2023-08-31', '500000', 'wisata2.jpg', 'Paket 2 hari 1 malam\r\n- siring kotabaru\r\n- pantai teluk tamiang \r\n- tanjung dewa kotabaru', 'Aktif', '16', '2', '8'),
+(2, 'Paket Merah', '2023-08-31', '800000', 'wisata3.jpg', 'Paket 3 hari 2 malam\r\n- siring kotabaru\r\n- goa temulangan\r\n- pantai teluk tamiang \r\n- tanjung dewa kotabaru', 'Aktif', '8', '3', '4'),
+(3, 'Paket Putih', '2023-08-31', '500000', 'wisata2.jpg', 'Paket 2 hari 1 malam\r\n- siring kotabaru\r\n- pantai teluk tamiang \r\n- tanjung dewa kotabaru', 'Aktif', '14', '2', '10'),
 (4, 'Paket Garuda II', '2023-09-30', '2500000', 'wisata5.jpg', 'Paket 5 hari 4 malam\r\n- siring kotabaru\r\n- pulau birah-birahan\r\n- goa temulangan\r\n- samber gelap\r\n- pantai teluk tamiang \r\n- tanjung dewa kotabaru', 'Aktif', '4', '5', '8'),
-(5, 'Paket Merah II', '2023-09-10', '800000', 'wisata3.jpg', 'Paket 3 hari 2 malam\r\n- siring kotabaru\r\n- goa temulangan\r\n- pantai teluk tamiang \r\n- tanjung dewa kotabaru', 'Aktif', '6', '3', '8');
+(5, 'Paket Merah II', '2023-09-10', '800000', 'wisata3.jpg', 'Paket 3 hari 2 malam\r\n- siring kotabaru\r\n- goa temulangan\r\n- pantai teluk tamiang \r\n- tanjung dewa kotabaru', 'Aktif', '5', '3', '9');
 
 --
 -- Indexes for dumped tables
@@ -315,7 +325,7 @@ ALTER TABLE `mobil`
 -- AUTO_INCREMENT untuk tabel `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

@@ -278,6 +278,15 @@ $sub_total = $subtotal += $total;
                             </tfoot>
                         </table>
                         <?php
+
+                        use PHPMailer\PHPMailer\PHPMailer;
+                        use PHPMailer\PHPMailer\Exception;
+
+                        //ini sesuaikan foldernya ke file 3 ini
+                        require '../assets_u/phpmailer/src/Exception.php';
+                        require '../assets_u/phpmailer/src/PHPMailer.php';
+                        require '../assets_u/phpmailer/src/SMTP.php';
+
                         if (isset($_POST['booking'])) {
                             $id_transaksi = $_POST['id_transaksi'];
                             $id_user = $_SESSION['id_user'];
@@ -294,7 +303,7 @@ $sub_total = $subtotal += $total;
                             $ambil = $conn->query("SELECT * FROM mobil WHERE id_mobil='$id_mobil'");
                             $pecah = $ambil->fetch_assoc();
                             $harga = $pecah["harga"];
-                       
+
 
                             $cek = 0;
 
@@ -315,16 +324,52 @@ $sub_total = $subtotal += $total;
                                     $sql1    = "INSERT INTO cek (`id_transaksi`, `id_mobil`, `tanggal`, `status`) VALUES ('$id_transaksi_barusan','$id_mobil','$tglhasil','$status')";
                                     $save = mysqli_query($conn, $sql1);
                                 }
-                            }
-                            if ($save) {
-                                echo "<script> alert(' Pemesanan Selesai Silahkan print invoice'); location='confirmation.php?id_transaksi=$id_transaksi_barusan ';
-                                 </script>";
+
+                                //sesuaikan name dengan di form nya ya 
+                                $email = 'sandiyatkamarullah9@gmail.com';
+                                $judul = 'Travel & Tour';
+                                $pesan = "Ada transaksi mobil baru lagi nih yang baru masuk dengan nomor id = '$id_transaksi_barusan'";
+
+                                //Create an instance; passing `true` enables exceptions
+                                $mail = new PHPMailer(true);
+
+                                try {
+                                    //Server settings
+                                    $mail->SMTPDebug = 2;                      //Enable verbose debug output
+                                    $mail->isSMTP();                                            //Send using SMTP
+                                    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                                    $mail->Username   = 'sandiyatkamarullah9@gmail.com';                     //SMTP username
+                                    $mail->Password   = 'gyhqxrfuzipdvcuu';                               //SMTP password
+                                    $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+                                    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                                    //pengirim
+                                    $mail->setFrom('sandiyatkamarullah@gmail.com', 'CV Icha Jaya Mandiri');
+                                    $mail->addAddress($email);     //Add a recipient
+
+                                    //Content
+                                    $mail->isHTML(true);                                  //Set email format to HTML
+                                    $mail->Subject = $judul;
+                                    $mail->Body    = $pesan;
+                                    $mail->AltBody = '';
+                                    //$mail->AddEmbeddedImage('gambar/logo.png', 'logo'); //abaikan jika tidak ada logo
+                                    //$mail->addAttachment(''); 
+
+                                    $mail->send();
+                                    echo "<script> alert('Pemesanan Selesai Silahkan print invoice'); location='confirmation.php?id_transaksi=$id_transaksi_barusan';
+                                        </script>";
+                                } catch (Exception $e) {
+                                    echo "<script> alert('Pemesanan Selesai Silahkan print invoice'); location='confirmation.php?id_transaksi=$id_transaksi_barusan';
+                                        </script>";
+                                }
+                                echo "<script> alert('Pemesanan Selesai Silahkan print invoice'); location='confirmation.php?id_transaksi=$id_transaksi_barusan';
+                                    </script>";
                             } else {
                                 echo "<script> alert('Pemesanan gagal'); location='car.php';
-                               </script>";
+                                   </script>";
                             }
                         } ?>
-
                     </div>
                 </div>
             </div>
